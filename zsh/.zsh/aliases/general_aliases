@@ -14,5 +14,6 @@ alias gc='git commit -v'
 alias gcb='git checkout -b'
 alias gd='git diff'
 alias gp='git pull'
-alias ggpull='git pull origin "$(git_current_branch)"'
-alias ggpush='git push origin "$(git_current_branch)"'
+alias gu='git push'
+
+
