@@ -5,22 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source <(antibody init)
-antibody bundle < ~/.zsh_plugins.txt
-
+antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+source ~/.zsh_plugins.sh
 
 # Source aliases
 for a in $HOME/.zsh/aliases/*
 do
   source $a
 done
-
-# Plugin configs
-source .zsh-autosuggestions
-
-# Keybindings
-#bindkey '^ ' autosuggest-accept
-
 
 # Line navigation shortcuts
 bindkey "^B" backward-word
