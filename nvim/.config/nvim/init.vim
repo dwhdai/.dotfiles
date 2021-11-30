@@ -53,8 +53,9 @@ source ~/.config/nvim/plugins/commentary.vim
 source ~/.config/nvim/plugins/fzf.vim
 source ~/.config/nvim/plugins/dracula.vim
 source ~/.config/nvim/plugins/floaterm.vim
-source ~/.config/nvim/plugins/coc.vim
-
+source ~/.config/nvim/plugins/lsp-config.vim
+source ~/.config/nvim/plugins/nvim-compe.vim
+"luafile ~/.config/nvim/plugins/python-ls.lua
 call plug#end()
 doautocmd User PlugLoaded
-
+lua require'lspconfig'.pyright.setup{}
