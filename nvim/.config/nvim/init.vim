@@ -55,7 +55,14 @@ source ~/.config/nvim/plugins/dracula.vim
 source ~/.config/nvim/plugins/floaterm.vim
 source ~/.config/nvim/plugins/lsp-config.vim
 source ~/.config/nvim/plugins/nvim-compe.vim
-"luafile ~/.config/nvim/plugins/python-ls.lua
+source ~/.config/nvim/plugins/vim-airline.vim
+source ~/.config/nvim/plugins/nerdtree.vim
+source ~/.config/nvim/plugins/surround.vim
+source ~/.config/nvim/plugins/vimspector.vim
+source ~/.config/nvim/plugins/vim-maximizer.vim
+source ~/.config/nvim/plugins/autopairs.vim
+
 call plug#end()
 doautocmd User PlugLoaded
 lua require'lspconfig'.pyright.setup{}
+lua require('nvim-autopairs').setup{}

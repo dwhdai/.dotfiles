@@ -1,4 +1,4 @@
-alias ls='ls -al'
+alias ll='ls -al'
 alias cl='clear'
 alias vi='nvim'
 alias vim='nvim'
