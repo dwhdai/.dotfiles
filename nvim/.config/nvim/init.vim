@@ -33,7 +33,6 @@ set redrawtime=10000 " Allow more time for loading syntax on large files
 let mapleader = "\<space>"
 
 nmap <leader>ve :edit ~/.config/nvim/init.vim<cr>
-nmap <leader>vc :edit ~/.config/nvim/coc-settings.json<cr>
 nmap <leader>vr :source ~/.config/nvim/init.vim<cr>
 
 " Allow gf to open non-existent files
@@ -50,19 +49,23 @@ call plug#begin("~/.config/nvim/plugged")
 
 source ~/.config/nvim/plugins/sonokai.vim
 source ~/.config/nvim/plugins/commentary.vim
-source ~/.config/nvim/plugins/fzf.vim
 source ~/.config/nvim/plugins/dracula.vim
 source ~/.config/nvim/plugins/floaterm.vim
 source ~/.config/nvim/plugins/lsp-config.vim
 source ~/.config/nvim/plugins/nvim-compe.vim
-source ~/.config/nvim/plugins/vim-airline.vim
 source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/surround.vim
 source ~/.config/nvim/plugins/vimspector.vim
 source ~/.config/nvim/plugins/vim-maximizer.vim
 source ~/.config/nvim/plugins/autopairs.vim
+source ~/.config/nvim/plugins/bufferline.vim
+source ~/.config/nvim/plugins/lualine.vim
+source ~/.config/nvim/plugins/telescope.vim
+
 
 call plug#end()
 doautocmd User PlugLoaded
 lua require'lspconfig'.pyright.setup{}
 lua require('nvim-autopairs').setup{}
+lua require("bufferline").setup{}
+lua require'lualine'.setup()
