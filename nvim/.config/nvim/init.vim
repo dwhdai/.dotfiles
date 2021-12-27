@@ -4,6 +4,7 @@
 
 syntax on
 
+set cursorline
 set expandtab
 set shiftwidth=4
 set tabstop=4
@@ -21,17 +22,31 @@ set nowrap
 set mouse=a
 set scrolloff=8
 set sidescrolloff=8
+set splitbelow
 set splitright
 set nobackup
 set encoding=UTF-8
 set updatetime=300 " Reduce time for highlighting other references
 set redrawtime=10000 " Allow more time for loading syntax on large files
 
+" Line width indication
+augroup vimrc_autocmds
+  autocmd BufEnter * highlight OverLength guibg=#FCBE7A
+  autocmd BufEnter * match OverLength /\%79v.*/
+augroup END
+
 " -------------------------------
 "  Keymaps
 " -------------------------------
 let mapleader = "\<space>"
+nnoremap <C-s> :w<CR>
 
+" window management
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-c> <C-w>c
+nnoremap <C-w>> :vertical resize +5<CR>
+nnoremap <C-w>< :vertical resize -5<CR>
 nmap <leader>ve :edit ~/.config/nvim/init.vim<cr>
 nmap <leader>vr :source ~/.config/nvim/init.vim<cr>
 
