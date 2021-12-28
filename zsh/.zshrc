@@ -22,3 +22,6 @@ bindkey "^F" forward-word
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 bindkey -v
+
+# Path additions
+export PATH="$HOME/.poetry/bin:$PATH"

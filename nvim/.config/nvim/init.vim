@@ -32,7 +32,7 @@ set redrawtime=10000 " Allow more time for loading syntax on large files
 " Line width indication
 augroup vimrc_autocmds
   autocmd BufEnter * highlight OverLength guibg=#FCBE7A
-  autocmd BufEnter * match OverLength /\%79v.*/
+  autocmd BufEnter * match OverLength /\%100v.*/
 augroup END
 
 " -------------------------------
