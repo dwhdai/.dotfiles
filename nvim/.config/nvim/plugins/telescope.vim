@@ -3,9 +3,11 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " File picker commands
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-"nnoremap <leader>fF <cmd>Telescope git_files<cr>
+nnoremap <leader>fF <cmd>Telescope git_files<cr>
 nnoremap <leader>fl <cmd>Telescope file_browser<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fG <cmd>Telescope grep_string<cr>
 
 " Vim picker commands
 nnoremap <leader>fsh <cmd>Telescope search_history<cr>

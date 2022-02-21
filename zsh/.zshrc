@@ -25,3 +25,5 @@ bindkey -v
 
 # Path additions
 export PATH="$HOME/.poetry/bin:$PATH"
+
+precmd () {print -Pn "\e]0;%~\a"}
