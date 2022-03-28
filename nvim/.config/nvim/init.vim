@@ -25,6 +25,7 @@ set sidescrolloff=8
 set splitbelow
 set splitright
 set nobackup
+set noswapfile
 set encoding=UTF-8
 set updatetime=300 " Reduce time for highlighting other references
 set redrawtime=10000 " Allow more time for loading syntax on large files
@@ -57,8 +58,7 @@ imap jj <esc>
 call plug#begin("~/.config/nvim/plugged")
 
 source ~/.config/nvim/plugins/commentary.vim
-" source ~/.config/nvim/plugins/dracula.vim
-source ~/.config/nvim/plugins/everforest.vim
+source ~/.config/nvim/plugins/gruvbox.vim
 source ~/.config/nvim/plugins/floaterm.vim
 source ~/.config/nvim/plugins/lsp-config.vim
 source ~/.config/nvim/plugins/nvim-compe.vim
@@ -71,7 +71,7 @@ source ~/.config/nvim/plugins/bufferline.vim
 source ~/.config/nvim/plugins/lualine.vim
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/dashboard.vim
-
+source ~/.config/nvim/plugins/neoterm.vim
 
 call plug#end()
 doautocmd User PlugLoaded
@@ -79,5 +79,5 @@ lua require'lspconfig'.pyright.setup{}
 lua require('nvim-autopairs').setup{}
 lua require("bufferline").setup{}
 lua require'lualine'.setup{} 
-colorscheme everforest
+colorscheme gruvbox
 " lua require('lspsaga').init_lsp_saga()
