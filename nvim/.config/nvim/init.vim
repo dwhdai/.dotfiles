@@ -72,6 +72,7 @@ source ~/.config/nvim/plugins/lualine.vim
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/dashboard.vim
 source ~/.config/nvim/plugins/neoterm.vim
+source ~/.config/nvim/plugins/dressing.vim
 
 call plug#end()
 doautocmd User PlugLoaded
