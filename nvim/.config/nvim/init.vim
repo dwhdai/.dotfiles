@@ -81,6 +81,8 @@ source ~/.config/nvim/plugins/telescope.vim
 call plug#end()
 doautocmd User PlugLoaded
 lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.tsserver.setup{}
+lua require'lspconfig'.html.setup{}
 lua require('nvim-autopairs').setup{}
 lua require("bufferline").setup{}
 lua require'lualine'.setup()
