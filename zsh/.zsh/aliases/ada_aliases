@@ -1,0 +1,2 @@
+alias preprod='saml2aws login --idp-account=ada-preproduction --force'
+alias prod='saml2aws login --idp-account=ada-production --force'
