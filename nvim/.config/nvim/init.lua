@@ -7,3 +7,4 @@ require "user.cmp"
 require "user.lsp"
 require "user.telescope"
 vim.cmd("source $HOME/.config/nvim/lua/user/vim-slime.vim")
+require "user.nvim-tree"
