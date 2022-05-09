@@ -6,3 +6,4 @@ require "user.onenord"
 require "user.cmp"
 require "user.lsp"
 require "user.telescope"
+vim.cmd("source lua/user/vim-slime.vim")

@@ -143,6 +143,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/daviddai/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["vim-slime"] = {
+    loaded = true,
+    path = "/Users/daviddai/.local/share/nvim/site/pack/packer/start/vim-slime",
+    url = "https://github.com/jpalardy/vim-slime"
   }
 }
 

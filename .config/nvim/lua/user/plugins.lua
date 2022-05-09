@@ -60,9 +60,10 @@ return packer.startup(function(use)
    
   -- snippets
 
-  -- LSP
+  -- LSP and coding
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
+  use "jpalardy/vim-slime"
 
   -- Telescope
   use {
