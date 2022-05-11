@@ -35,10 +35,6 @@ keymap("n", "<C-down>", ":resize -2<CR>", opts)
 keymap("n", "<C-left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-right>", ":vertical resize +2<CR>", opts)
 
--- Navigate buffers
-keymap("n", "<A-[>", ":bnext<CR>", {})
-keymap("n", "<A-]>", ":bprevious<CR>", {})
-
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
@@ -74,3 +70,9 @@ keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)
 
 -- Nvimtree
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+
+-- Bufferline
+keymap("n", "<A-[>", ":BufferLineCyclePrev<CR>", opts)
+keymap("n", "<A-]>", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "<A-w>", ":BufferLinePickClose<CR>", opts)
+
