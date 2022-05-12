@@ -6,6 +6,7 @@ require "user.onenord"
 require "user.cmp"
 require "user.lsp"
 require "user.telescope"
+require "user.treesitter"
 vim.cmd("source $HOME/.config/nvim/lua/user/vim-slime.vim")
 require "user.nvim-tree"
 require "user.bufferline"

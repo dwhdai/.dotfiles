@@ -6,3 +6,4 @@ alias lmi='lovelace machine info'
 alias lms='lovelace machine sleep'
 alias lmw='lovelace machine wake_up'
 
+alias am='cd ~/data/AdaSupport/answering-machine/ && source am_env/bin/activate'
