@@ -10,3 +10,4 @@ require "user.treesitter"
 vim.cmd("source $HOME/.config/nvim/lua/user/vim-slime.vim")
 require "user.nvim-tree"
 require "user.bufferline"
+require "user.gitsigns"
