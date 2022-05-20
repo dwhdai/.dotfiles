@@ -76,3 +76,10 @@ keymap("n", "<A-[>", ":BufferLineCyclePrev<CR>", opts)
 keymap("n", "<A-]>", ":BufferLineCycleNext<CR>", opts)
 keymap("n", "<A-w>", ":BufferLinePickClose<CR>", opts)
 
+-- Gitsigns
+keymap("n", "<leader>Gb", ":Gitsigns blame_line<CR>", opts)
+keymap("n", "<leader>Ga", ":Gitsigns stage_hunk<CR>", opts)
+keymap("n", "<leader>Gu", ":Gitsigns undo_stage_hunk<CR>", opts)
+keymap("n", "<leader>Gd", ":Gitsigns diffthis<CR>", opts)
+keymap("n", "<leader>Gh", ":Gitsigns preview_hunk<CR>", opts)
+
