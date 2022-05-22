@@ -19,4 +19,5 @@ alias gd='git diff'
 alias gp='git pull'
 alias gu='git push'
 
-
+# python
+alias ip="ipython"

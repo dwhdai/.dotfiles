@@ -25,5 +25,8 @@ bindkey -v
 
 # Path additions
 export PATH="$HOME/.poetry/bin:$PATH"
-
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+export PATH="$HOME/.dotfiles/scripts:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
+# pyenv paths
+eval "$(pyenv init --path)"
