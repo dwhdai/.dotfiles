@@ -14,6 +14,12 @@ vim.g.maplocalleader = " "
 keymap("n", "<Leader>vr", ":source $MYVIMRC<CR>", {}) 
 keymap("n", "<Leader>ve", ":edit $MYVIMRC<CR>", {}) 
 
+--Yank to clipboard
+keymap("v", "<Leader>y", '\"+y', {})
+
+--Paste from clipboard
+keymap("n", "<Leader>p", '\"+gp', {})
+
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
