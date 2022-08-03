@@ -88,4 +88,5 @@ keymap("n", "<leader>Ga", ":Gitsigns stage_hunk<CR>", opts)
 keymap("n", "<leader>Gu", ":Gitsigns undo_stage_hunk<CR>", opts)
 keymap("n", "<leader>Gd", ":Gitsigns diffthis<CR>", opts)
 keymap("n", "<leader>Gh", ":Gitsigns preview_hunk<CR>", opts)
-
+keymap("n", "<leader>Gn", ":Gitsigns next_hunk<CR>", opts)
+keymap("n", "<leader>GN", ":Gitsigns prev_hunk<CR>", opts)
