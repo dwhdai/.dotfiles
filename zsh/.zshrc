@@ -30,3 +30,5 @@ export PATH="$HOME/.dotfiles/scripts:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
 # pyenv paths
 eval "$(pyenv init --path)"
+
+autoload -Uz compinit && compinit
