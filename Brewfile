@@ -17,4 +17,6 @@ brew "curl"
 brew "wget"
 brew "git"
 brew "tmux"
-
+brew "stow"
+brew "antibody"
+brew "pyenv"
