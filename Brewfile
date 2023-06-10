@@ -10,6 +10,7 @@ cask "spotify"
 cask "google-chrome"
 cask "1password"
 cask "alfred"
+cask "rectangle"
 
 # Brews
 brew "curl"
