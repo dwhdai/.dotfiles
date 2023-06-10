@@ -1,9 +1,0 @@
-alias preprod='saml2aws login --idp-account=ada-preproduction --force'
-alias prod='saml2aws login --idp-account=ada-production --force'
-
-alias lml='lovelace machine list --active_only=False | grep "daviddai"'
-alias lmi='lovelace machine info'
-alias lms='lovelace machine sleep'
-alias lmw='lovelace machine wake_up'
-
-alias am='cd ~/data/AdaSupport/answering-machine/ && source am_env/bin/activate'
