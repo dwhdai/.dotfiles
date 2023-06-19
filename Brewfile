@@ -15,6 +15,7 @@ cask "rectangle"
 cask "slack"
 cask "linearmouse"
 cask "notion"
+cask "iterm2"
 
 # Brews
 brew "curl"
