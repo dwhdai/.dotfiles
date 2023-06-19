@@ -3,6 +3,7 @@ cask_args appdir: "/Applications"
 # Taps
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 
 # Casks
 cask "visual-studio-code"
@@ -16,6 +17,7 @@ cask "slack"
 cask "linearmouse"
 cask "notion"
 cask "iterm2"
+cask "font-fira-code-nerd-font"
 
 # Brews
 brew "curl"

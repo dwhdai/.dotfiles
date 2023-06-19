@@ -6,6 +6,9 @@
       },
       "homebrew/cask": {
         "revision": "3afaf80cd4eea820e181ce99e163f3e79214d642"
+      },
+      "homebrew/cask-fonts": {
+        "revision": "4591c4fd30ce0363c1c56ab83201d3dffc4c9bbf"
       }
     },
     "cask": {
@@ -103,6 +106,24 @@
         "version": "3.4.19",
         "options": {
           "full_name": "iterm2",
+          "args": {
+            "appdir": "/Applications"
+          }
+        }
+      },
+      "font-hasklug-nerd-font": {
+        "version": "3.0.2",
+        "options": {
+          "full_name": "font-hasklug-nerd-font",
+          "args": {
+            "appdir": "/Applications"
+          }
+        }
+      },
+      "font-fira-code-nerd-font": {
+        "version": "3.0.2",
+        "options": {
+          "full_name": "font-fira-code-nerd-font",
           "args": {
             "appdir": "/Applications"
           }
