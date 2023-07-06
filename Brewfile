@@ -18,6 +18,7 @@ cask "linearmouse"
 cask "notion"
 cask "iterm2"
 cask "font-fira-code-nerd-font"
+cask "docker"
 
 # Brews
 brew "curl"
