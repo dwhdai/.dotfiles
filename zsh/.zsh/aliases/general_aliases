@@ -3,9 +3,6 @@ alias cl='clear'
 alias vi='nvim'
 alias vim='nvim'
 
-# Kitten ssh
-alias ssh="kitty +kitten ssh"
-
 # Git aliases
 alias g='git'
 alias gs='git status'

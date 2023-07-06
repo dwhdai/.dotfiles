@@ -1,0 +1,5 @@
+# GCP
+alias gssh=gcloud compute ssh --zone us-central1-a --project evenup-data
+
+# Launch scratch environment
+alias vip="cd ~/scratch/python-scratch && source venv/bin/activate && ipython"
