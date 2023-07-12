@@ -1,0 +1,4 @@
+# LOPS backend env vars
+export BACKEND_SERVICE_ACCOUNT_KEY_FILE=~/evenup-ai/lops-backend/key.json 
+export LOPS_FRONTEND_DIR=~/evenup-ai/lops_frontend
+export COMMON_DIR=~/evenup-ai/common
