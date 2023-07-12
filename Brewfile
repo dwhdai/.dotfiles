@@ -29,3 +29,8 @@ brew "stow"
 brew "antibody"
 brew "pyenv"
 brew "neovim"
+brew "ripgrep"
+brew "fd"
+brew "lazygit"
+brew "npm"
+
