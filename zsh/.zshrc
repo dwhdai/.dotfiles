@@ -30,11 +30,11 @@ eval "$(pyenv init --path)"
 
 autoload -Uz compinit && compinit
 
-<<<<<<< Updated upstream
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-=======
->>>>>>> Stashed changes
+
+# Created by `pipx` on 2024-03-16 23:21:16
+export PATH="$PATH:/Users/daviddai/.local/bin"
