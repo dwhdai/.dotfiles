@@ -5,12 +5,15 @@ return {
     version = '*',
     opts = {},
     keys = {
-      { 't', 'Esc', '<c-><c-n>' },
+      -- { 't', 'Esc', '<c-\\><c-n>' },
+      --{ 't', 'jj', '<c-\\><c-n>' },
+      { "<A-'>", '<cmd>ToggleTermToggleAll<cr>', desc = 'ToggleTerm' },
     },
     config = function()
       require('toggleterm').setup {
-        -- open_mapping = [[<c-\>]],
-        -- close_on_exit = false,
+        always_show_bufferline = true,
+        close_on_exit = false,
+        direction = 'float',
       }
     end,
   },

@@ -160,6 +160,7 @@ vim.opt.scrolloff = 10
 -- map jj to escape
 vim.keymap.set('i', 'jj', '<Esc>', {})
 
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -289,6 +290,7 @@ require('lazy').setup({
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>b'] = { name = '[B]uffers', _ = 'which_key_ignore' },
       }
     end,
   },
