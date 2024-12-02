@@ -24,9 +24,16 @@ bindkey -v
 # Path additions
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
+export PATH="/Users/david/.local/bin:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
+
 # pyenv paths
-eval "$(pyenv init --path)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# direnv
+eval "$(direnv hook zsh)"
 
 autoload -Uz compinit && compinit
 
@@ -35,3 +42,11 @@ autoload -Uz compinit && compinit
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# Created by `pipx` on 2024-03-16 23:21:16
+export PATH="$PATH:/Users/daviddai/.local/bin"
+#. /Users/david/.evenup_zshrc
+
+# bun
+export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

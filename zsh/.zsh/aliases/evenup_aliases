@@ -1,7 +1,7 @@
 # GCP
-alias gssh=gcloud compute ssh --zone us-central1-a --project evenup-data
-
+alias sshvm="gcloud compute ssh --zone us-central1-a --project evenup-rd-prod david-dai"
+alias startvm="gcloud workbench instances  start  --location=us-central1-a --project=evenup-rd-prod  david-dai"
+alias stopvm="gcloud workbench instances  stop  --location=us-central1-a --project=evenup-rd-prod david-dai"
 # Launch scratch environment
 alias vip="cd ~/scratch/python-scratch && source venv/bin/activate && ipython"
 alias docker_evenup="~/evenup-ai/common/setup/docker-compose-evenup.sh"
-
