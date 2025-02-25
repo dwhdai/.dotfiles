@@ -6,8 +6,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Install plugins
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.sh
+#antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+#source ~/.zsh_plugins.sh
+
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Source aliases
 for a in $HOME/.zsh/aliases/*
@@ -50,3 +53,9 @@ export PATH="$PATH:/Users/daviddai/.local/bin"
 # bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/david/.dotfiles/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/david/.dotfiles/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc'; fi
