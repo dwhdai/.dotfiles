@@ -19,10 +19,10 @@ do
 done
 
 # Line navigation shortcuts
-bindkey "^B" backward-word
-bindkey "^F" forward-word
+bindkey "^H" backward-word
+bindkey "^L" forward-word
+bindkey '^[[3;3~' kill-word 
 
-bindkey -v
 
 # Path additions
 export PATH="$HOME/.poetry/bin:$PATH"
@@ -59,3 +59,8 @@ if [ -f '/Users/david/.dotfiles/google-cloud-sdk/path.zsh.inc' ]; then . '/Users
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# zsh-history-substring-search config
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
