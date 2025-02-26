@@ -6,8 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Install plugins
-#antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
-#source ~/.zsh_plugins.sh
+source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+antidote load $HOME/.zsh_plugins.txt
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"

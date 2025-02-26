@@ -20,6 +20,7 @@ cask "wezterm"
 cask "orbstack"
 cask "nikitabobko/tap/aerospace"
 cask "gitify"
+cask "1password-cli"
 
 # Brews
 brew "curl"
@@ -35,3 +36,5 @@ brew "pipx"
 brew "uv"
 brew "poetry"
 brew "pre-commit"
+brew "antidote"
+brew "rg"
