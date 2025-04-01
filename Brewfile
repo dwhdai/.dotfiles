@@ -21,6 +21,7 @@ cask "orbstack"
 cask "nikitabobko/tap/aerospace"
 cask "gitify"
 cask "1password-cli"
+cask "pgadmin4"
 
 # Brews
 brew "curl"

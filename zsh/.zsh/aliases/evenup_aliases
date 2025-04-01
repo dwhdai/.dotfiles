@@ -5,3 +5,21 @@ alias stopvm="gcloud workbench instances  stop  --location=us-central1-a --proje
 # Launch scratch environment
 alias vip="cd ~/scratch/python-scratch && source venv/bin/activate && ipython"
 alias docker_evenup="~/evenup-ai/common/setup/docker-compose-evenup.sh"
+
+workon() {
+  case "$1" in
+    "alib")
+      cursor ~/evenup-ai/annotations-library
+      ;;
+    "aservice")
+      cursor ~/evenup-ai/annotation-service/
+      ;;
+    "exp")
+      cursor ~/evenup-ai/data-experiments
+      ;;
+    *)
+      echo "Usage: workon [annotation-library|annotations-service|data-experiments]"
+      return 1
+      ;;
+  esac
+}
