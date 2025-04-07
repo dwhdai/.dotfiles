@@ -13,7 +13,7 @@ antidote load $HOME/.zsh_plugins.txt
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Load api keys
-export ANTHROPIC_API_KEY=$(pass show anthropic_key)
+#export ANTHROPIC_API_KEY=$(pass show anthropic_key)
 
 # Source aliases
 for a in $HOME/.zsh/aliases/*
