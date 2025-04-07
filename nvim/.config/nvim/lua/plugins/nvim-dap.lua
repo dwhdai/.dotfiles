@@ -5,6 +5,7 @@ return {
 
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
+		"nvim-neotest/nvim-nio",
 		"mfussenegger/nvim-dap-python",
 		-- virtual text for the debugger
 		{
@@ -40,17 +41,23 @@ return {
 		local dap_python = require("dap-python")
 
 		require("dapui").setup({})
-		require("dap-python").setup({})
 		require("nvim-dap-virtual-text").setup({
 			commented = true, -- Show virtual text alongside comment
 		})
-
-		-- Use globally installed debugpy for nvim-dap-python
-		dap_python.setup("python3")
+		dap_python.setup("~/.venvs/debugpy/bin/python")
 
 		-- Automatically open/close DAP UI
-		dap.listeners.after.event_initialized["dapui_config"] = function()
+		dap.listeners.before.attach.dapui_config = function()
 			dapui.open()
+		end
+		dap.listeners.before.launch.dapui_config = function()
+			dapui.open()
+		end
+		dap.listeners.before.event_terminated.dapui_config = function()
+			dapui.close()
+		end
+		dap.listeners.before.event_exited.dapui_config = function()
+			dapui.close()
 		end
 	end,
 }
