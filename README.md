@@ -12,7 +12,6 @@ In order to easily leverage GNU stow, this repository should be cloned within th
 2. clone this repository in `$HOME`: `cd $HOME && git clone git@github.com:dwhdai/.dotfiles.git"
 3. install things with brew: `brew bundle`
 
-
 ## using stow
 GNU stow is used to create symlinks between this repository to the `$HOME` directory. To do this, run `stow <package>`. 
 
