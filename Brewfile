@@ -12,6 +12,9 @@ cask "raycast"
 cask "wezterm"
 cask "nikitabobko/tap/aerospace"
 cask "pgadmin4"
+cask "1password"
+cask "visual-studio-code"
+cask "gitify"
 
 # Brews
 brew "curl"

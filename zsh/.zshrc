@@ -57,13 +57,13 @@ export PATH="$PATH:/Users/daviddai/.local/bin"
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/david/.dotfiles/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/david/.dotfiles/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/david/.dotfiles/google-cloud-sdk/completion.zsh.inc'; fi
-
 
 # zsh-history-substring-search config
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/david/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/david/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/david/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/david/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
