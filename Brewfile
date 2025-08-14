@@ -1,5 +1,8 @@
 cask_args appdir: "/Applications"
 
+# Taps
+tap "FelixKratz/formulae"
+
 # Casks
 cask "spotify"
 cask "google-chrome"
@@ -15,6 +18,7 @@ cask "pgadmin4"
 cask "1password"
 cask "visual-studio-code"
 cask "gitify"
+cask "orbstack"
 
 # Brews
 brew "curl"
@@ -36,3 +40,5 @@ brew "pass"
 brew "gpg"
 brew "tmuxinator"
 brew "tpm"
+brew "node"
+brew "borders"
