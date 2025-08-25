@@ -19,6 +19,7 @@ cask "1password"
 cask "visual-studio-code"
 cask "gitify"
 cask "orbstack"
+cask "zed"
 
 # Brews
 brew "curl"
