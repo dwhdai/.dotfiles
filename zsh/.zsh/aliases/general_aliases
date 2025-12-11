@@ -1,6 +1,6 @@
 alias ll='ls -al'
 alias cl='clear'
-alias vi='~/Downloads/nvim-macos-arm64/bin/nvim'
+alias vi='nvim'
 alias vim='nvim'
 
 # Kitten ssh

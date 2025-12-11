@@ -31,6 +31,7 @@ bindkey '^[[3;3~' kill-word
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
 export PATH="/Users/david/.local/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
 
 # pyenv paths

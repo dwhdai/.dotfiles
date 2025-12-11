@@ -9,7 +9,7 @@ local config = wezterm.config_builder()
 config.window_decorations = "RESIZE"
 config.font_size = 20
 -- For example, changing the color scheme:
-config.color_scheme = "duskfox"
+config.color_scheme = "GitHub Dark"
 config.window_background_opacity = 1.0
 config.window_frame = {
 	font_size = 16,
