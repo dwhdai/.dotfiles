@@ -23,3 +23,8 @@ alias gw='git switch'
 
 # python
 alias ip="ipython"
+
+# tmux
+alias t="tmux"
+alias tk="tmux kill-session -t"
+alias ta="tmux a -t"
