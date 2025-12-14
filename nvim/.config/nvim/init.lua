@@ -10,6 +10,8 @@ vim.pack.add({
 	"https://github.com/christoomey/vim-tmux-navigator",
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/folke/flash.nvim",
+	"https://github.com/nvim-tree/nvim-tree.lua",
+	"https://github.com/windwp/nvim-autopairs",
 })
 
 -- Theme
@@ -21,6 +23,44 @@ wk.setup()
 
 -- flash.nvim
 require("flash").setup()
+
+-- nvim-autopairs
+require("nvim-autopairs").setup({
+	check_ts = true,
+	ts_config = {
+		lua = { "string" },
+		javascript = { "template_string" },
+	},
+})
+
+-- nvim-tree
+
+-- first, disable the built-in filetree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup({
+	view = {
+		width = 35,
+	},
+	renderer = {
+		group_empty = true,
+		icons = {
+			show = {
+				file = false,
+				folder = false,
+				folder_arrow = true,
+				git = false,
+			},
+		},
+	},
+	filters = {
+		dotfiles = false,
+	},
+	hijack_directories = {
+		enable = false,
+	},
+})
 
 -- General nvim settings
 vim.opt.tabstop = 4
@@ -40,6 +80,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 -- Keymaps
 vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<Esc>")
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle File Explorer" })
 vim.keymap.set("n", "<leader>ff", function()
 	require("fzf-lua").files()
 end, { desc = "FzfLua: Find Files" })
