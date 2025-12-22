@@ -12,6 +12,7 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/nvim-tree/nvim-tree.lua",
 	"https://github.com/windwp/nvim-autopairs",
+	"https://github.com/linrongbin16/gitlinker.nvim",
 })
 
 -- Theme
@@ -20,6 +21,10 @@ vim.cmd("colorscheme github_dark_dimmed")
 -- which-key
 local wk = require("which-key")
 wk.setup()
+wk.add({
+	{ "<leader>d", group = "Debug" },
+	{ "<leader>g", group = "Git" },
+})
 
 -- flash.nvim
 require("flash").setup()
@@ -89,7 +94,13 @@ vim.keymap.set("n", "<leader>fg", function()
 end, { desc = "FzfLua: Live Grep" })
 vim.keymap.set("n", "<leader>fb", function()
 	require("fzf-lua").buffers()
-end, { desc = "FzfLua: Live Grep" })
+end, { desc = "FzfLua: Buffers" })
+vim.keymap.set("n", "<leader>fs", function()
+	require("fzf-lua").lsp_document_symbols()
+end, { desc = "FzfLua: Document Symbols" })
+vim.keymap.set("n", "<leader>fS", function()
+	require("fzf-lua").lsp_live_workspace_symbols()
+end, { desc = "FzfLua: Workspace Symbols" })
 
 vim.keymap.set("n", "<leader>r", "<cmd>source $MYVIMRC<CR>", { silent = false, desc = "Reload Neovim Config" })
 
@@ -102,7 +113,12 @@ vim.keymap.set({ "n", "x", "o" }, "S", function()
 end, { desc = "Flash Treesitter" })
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, desc = "LSP: Go to Definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true, desc = "LSP: Go to Definition" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true, desc = "LSP: Go to References" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "LSP: Code Action" })
+vim.keymap.set("n", "<leader>xx", vim.diagnostic.open_float, { silent = true, desc = "Show Diagnostics" })
+vim.keymap.set("n", "<leader>xq", vim.diagnostic.setqflist, { silent = true, desc = "Send Diagnostics to Quickfix" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Go to Previous Diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { silent = true, desc = "Go to Next Diagnostic" })
 
 -- Tmux navigator
 vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { silent = true, desc = "Navigate Left" })
@@ -110,6 +126,14 @@ vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { silent = true, desc 
 vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { silent = true, desc = "Navigate Up" })
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { silent = true, desc = "Navigate Right" })
 vim.keymap.set("n", "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", { silent = true, desc = "Navigate Previous" })
+
+-- gitlinker
+require("gitlinker").setup({
+	message = false, -- Don't show message in command line
+})
+
+vim.keymap.set({ "n", "v" }, "<leader>gy", "<cmd>GitLink<cr>", { silent = true, desc = "Copy Git Link" })
+vim.keymap.set({ "n", "v" }, "<leader>go", "<cmd>GitLink!<cr>", { silent = true, desc = "Open Git Link" })
 
 -- LSP and formatters
 vim.lsp.config("basedpyright", {
@@ -141,6 +165,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		python = { "ruff_organize_imports", "ruff_format" },
 		lua = { "stylua" },
+		json = { "prettier" },
 	},
 	format_after_save = {
 		timeout_ms = 500,
@@ -160,6 +185,14 @@ vim.keymap.set("n", "<leader>db", "<Cmd>DapToggleBreakpoint<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "DAP Toggle Breakpoint",
+})
+
+vim.keymap.set("n", "<leader>dr", function()
+	require("dap").restart()
+end, {
+	noremap = true,
+	silent = true,
+	desc = "DAP Restart Session",
 })
 vim.keymap.set("n", "<F6>", "<Cmd>DapStepOver<CR>", {
 	noremap = true,

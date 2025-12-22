@@ -20,6 +20,10 @@
       "rev": "c106c9472154d6b2c74b74565616b877ae8ed31d",
       "src": "https://github.com/projekt0n/github-nvim-theme"
     },
+    "gitlinker.nvim": {
+      "rev": "63cfbb7ba0465fa4a599f57c08c888abb188a595",
+      "src": "https://github.com/linrongbin16/gitlinker.nvim"
+    },
     "nvim-autopairs": {
       "rev": "d9e44e54384e5b0f3536339c65484f2e41b528e3",
       "src": "https://github.com/windwp/nvim-autopairs"
