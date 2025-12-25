@@ -15,6 +15,7 @@ vim.pack.add({
 	"https://github.com/linrongbin16/gitlinker.nvim",
 	"https://github.com/mistweaverco/kulala.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/akinsho/toggleterm.nvim",
 })
 
 -- Theme
@@ -27,6 +28,7 @@ wk.add({
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>g", group = "Git" },
 	{ "<leader>h", group = "HTTP/REST" },
+	{ "<leader>t", group = "Terminal" },
 })
 
 -- flash.nvim
@@ -35,6 +37,15 @@ require("flash").setup()
 -- nvim-autopairs
 require("nvim-autopairs").setup({
 	check_ts = false,
+})
+
+-- toggleterm
+require("toggleterm").setup({
+	direction = "float",
+	float_opts = {
+		border = "curved",
+	},
+	open_mapping = [[<C-t>]],
 })
 
 -- nvim-tree
@@ -74,6 +85,7 @@ vim.opt.relativenumber = true
 vim.opt.smartindent = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.autoread = true
+vim.opt.foldmethod = "manual"
 
 -- Auto-reload files when changed externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
@@ -106,6 +118,9 @@ end, { desc = "FzfLua: Workspace Symbols" })
 
 vim.keymap.set("n", "<leader>r", "<cmd>source $MYVIMRC<CR>", { silent = false, desc = "Reload Neovim Config" })
 
+-- Toggleterm keymap
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
+
 -- Flash keymaps
 vim.keymap.set({ "n", "x", "o" }, "s", function()
 	require("flash").jump()
@@ -136,9 +151,10 @@ vim.keymap.set({ "n", "v" }, "<leader>go", "<cmd>GitLink!<cr>", { silent = true,
 
 -- kulala.nvim (HTTP client)
 require("kulala").setup({
-	default_view = "body", -- body|headers|headers_body
-	split_direction = "vertical", -- vertical|horizontal
-	winbar = true,
+	split_direction = "vertical",
+	ui = {
+		max_response_size = 50 * 1024 * 1024, -- 50MB
+	},
 })
 
 vim.keymap.set("n", "<leader>hr", function()
