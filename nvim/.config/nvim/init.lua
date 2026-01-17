@@ -16,6 +16,7 @@ vim.pack.add({
 	"https://github.com/mistweaverco/kulala.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/akinsho/toggleterm.nvim",
+	"https://github.com/echasnovski/mini.nvim",
 })
 
 -- Theme
@@ -25,6 +26,7 @@ vim.cmd("colorscheme github_dark_dimmed")
 local wk = require("which-key")
 wk.setup()
 wk.add({
+	{ "<leader>c", group = "Code" },
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>g", group = "Git" },
 	{ "<leader>h", group = "HTTP/REST" },
@@ -38,6 +40,9 @@ require("flash").setup()
 require("nvim-autopairs").setup({
 	check_ts = false,
 })
+
+-- mini.completion
+require("mini.completion").setup()
 
 -- toggleterm
 require("toggleterm").setup({
@@ -87,10 +92,20 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.autoread = true
 vim.opt.foldmethod = "manual"
 
+-- Window resize behavior: equalize widths only (horizontal)
+vim.opt.equalalways = true
+vim.opt.eadirection = "hor"
+
 -- Auto-reload files when changed externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
 	pattern = "*",
 	command = "if mode() != 'c' | checktime | endif",
+})
+
+-- Equalize window widths when terminal is resized
+vim.api.nvim_create_autocmd("VimResized", {
+	pattern = "*",
+	command = "wincmd =",
 })
 
 -- Keymaps
@@ -128,7 +143,8 @@ end, { desc = "Flash" })
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, desc = "LSP: Go to Definition" })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true, desc = "LSP: Go to References" })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "LSP: Code Action" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "Code Action" })
+vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { silent = true, desc = "Rename Symbol" })
 vim.keymap.set("n", "<leader>xx", vim.diagnostic.open_float, { silent = true, desc = "Show Diagnostics" })
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setqflist, { silent = true, desc = "Send Diagnostics to Quickfix" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Go to Previous Diagnostic" })
@@ -188,6 +204,9 @@ vim.lsp.config("basedpyright", {
 				},
 			},
 		},
+		python = {
+			pythonPath = vim.fn.exepath("python3"),
+		},
 	},
 })
 vim.lsp.enable("basedpyright")
@@ -219,6 +238,13 @@ require("conform").setup({
 
 -- nvim-dap/debugging
 require("dap-python").setup("$HOME/.venv/bin/python")
+
+-- nvim-dap-view setup
+-- require("dap-view").setup({
+-- 	terminal = {
+-- 		start_hidden = false, -- Show terminal when debug session starts
+-- 	},
+-- })
 vim.keymap.set("n", "<leader>dn", "<Cmd>DapNew<CR>", {
 	noremap = true,
 	silent = true,
@@ -231,12 +257,28 @@ vim.keymap.set("n", "<leader>db", "<Cmd>DapToggleBreakpoint<CR>", {
 	desc = "DAP Toggle Breakpoint",
 })
 
+vim.keymap.set("n", "<leader>dc", function()
+	require("dap").continue()
+end, {
+	noremap = true,
+	silent = true,
+	desc = "DAP Continue",
+})
+
 vim.keymap.set("n", "<leader>dr", function()
 	require("dap").restart()
 end, {
 	noremap = true,
 	silent = true,
 	desc = "DAP Restart Session",
+})
+
+vim.keymap.set("n", "<leader>dt", function()
+	require("dap").terminate()
+end, {
+	noremap = true,
+	silent = true,
+	desc = "DAP Terminate Session",
 })
 vim.keymap.set("n", "<F6>", "<Cmd>DapStepOver<CR>", {
 	noremap = true,
