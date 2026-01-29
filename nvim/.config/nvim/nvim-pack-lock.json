@@ -32,10 +32,6 @@
       "rev": "9fc4831a116fb32b0fd420ed483f5102a873446a",
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
-    "mini.nvim": {
-      "rev": "c9d3bc2df3015d82eabe3d2d88dac1ef5746e9e8",
-      "src": "https://github.com/echasnovski/mini.nvim"
-    },
     "nvim-autopairs": {
       "rev": "d9e44e54384e5b0f3536339c65484f2e41b528e3",
       "src": "https://github.com/windwp/nvim-autopairs"

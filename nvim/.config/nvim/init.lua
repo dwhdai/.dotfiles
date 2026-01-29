@@ -92,6 +92,13 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.autoread = true
 vim.opt.foldmethod = "manual"
 
+-- Filetype associations
+vim.filetype.add({
+	extension = {
+		jsonl = "json",
+	},
+})
+
 -- Window resize behavior: equalize widths only (horizontal)
 vim.opt.equalalways = true
 vim.opt.eadirection = "hor"
@@ -113,8 +120,13 @@ vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle File Explorer" })
 vim.keymap.set("n", "<leader>ff", function()
-	require("fzf-lua").files()
+	require("fzf-lua").files({
+		cmd = "fd --type f --exec-batch ls -1t",
+	})
 end, { desc = "FzfLua: Find Files (cwd)" })
+vim.keymap.set("n", "<leader>fa", function()
+	require("fzf-lua").files({ cmd = "fd --type f --hidden --no-ignore" })
+end, { desc = "FzfLua: Find ALL Files (including ignored)" })
 vim.keymap.set("n", "<leader>fF", function()
 	require("fzf-lua").files({ cwd = "~/evenup-ai" })
 end, { desc = "FzfLua: Find Files (cwd)" })
