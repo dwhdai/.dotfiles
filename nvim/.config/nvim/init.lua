@@ -4,6 +4,7 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/projekt0n/github-nvim-theme",
+	"https://github.com/oskarnurm/koda.nvim",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/mfussenegger/nvim-dap-python",
 	"https://github.com/igorlfs/nvim-dap-view",
@@ -17,6 +18,8 @@ vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/akinsho/toggleterm.nvim",
 	"https://github.com/echasnovski/mini.nvim",
+	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
+	"https://github.com/iamcco/markdown-preview.nvim",
 })
 
 -- Theme
@@ -30,6 +33,7 @@ wk.add({
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>g", group = "Git" },
 	{ "<leader>h", group = "HTTP/REST" },
+	{ "<leader>m", group = "Markdown" },
 	{ "<leader>t", group = "Terminal" },
 })
 
@@ -43,6 +47,12 @@ require("nvim-autopairs").setup({
 
 -- mini.completion
 require("mini.completion").setup()
+
+-- render-markdown
+require("render-markdown").setup()
+
+vim.keymap.set("n", "<leader>mt", "<cmd>RenderMarkdown toggle<cr>", { desc = "Toggle Markdown Render" })
+vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Toggle Browser Preview" })
 
 -- toggleterm
 require("toggleterm").setup({
