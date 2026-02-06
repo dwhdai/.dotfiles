@@ -16,12 +16,19 @@ config.window_frame = {
 }
 config.hide_tab_bar_if_only_one_tab = true
 
--- Dynamic padding: only apply on wide external monitors
+-- Dynamic padding: only apply on ultrawide external monitors
 local function apply_dynamic_padding(window)
 	local overrides = window:get_config_overrides() or {}
-	local dimensions = window:get_dimensions()
 
-	if dimensions.pixel_width > 2000 then
+	local is_ultrawide = false
+	local success, screens = pcall(wezterm.gui.screens)
+	if success then
+		local screen = screens.active
+		local ratio = screen.width / screen.height
+		is_ultrawide = ratio > 2.0
+	end
+
+	if is_ultrawide then
 		overrides.window_padding = {
 			left = 100,
 			right = 100,

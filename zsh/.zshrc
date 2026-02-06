@@ -63,7 +63,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-alias claude="/Users/daviddai/.claude/local/claude"
 
 # zoxide
 eval "$(zoxide init zsh)"
