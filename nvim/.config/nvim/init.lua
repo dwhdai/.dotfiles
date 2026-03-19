@@ -23,7 +23,7 @@ vim.pack.add({
 })
 
 -- Theme
-vim.cmd("colorscheme github_dark_dimmed")
+vim.cmd("colorscheme koda")
 
 -- which-key
 local wk = require("which-key")

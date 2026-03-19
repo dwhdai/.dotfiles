@@ -29,7 +29,7 @@
       "src": "https://github.com/linrongbin16/gitlinker.nvim"
     },
     "koda.nvim": {
-      "rev": "97129fbe8ef9467d68804a73e63c24501f56b9aa",
+      "rev": "20099d811b278df102a39985ee0f08e765cbcbfc",
       "src": "https://github.com/oskarnurm/koda.nvim"
     },
     "kulala.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
     "mini.nvim": {
-      "rev": "c9d3bc2df3015d82eabe3d2d88dac1ef5746e9e8",
+      "rev": "e5a9a3830f9c37211df4c82cac45bf728b95739d",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-autopairs": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "render-markdown.nvim": {
-      "rev": "b3efd6408e4e4d66d6caaee0579e72b579bc0884",
+      "rev": "48b4175dbca8439d30c1f52231cbe5a712c8f9d9",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "rest.nvim": {
