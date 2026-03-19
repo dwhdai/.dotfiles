@@ -32,6 +32,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
 export PATH="/Users/david/.local/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
 
 # pyenv paths

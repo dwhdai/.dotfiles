@@ -22,6 +22,7 @@ cask "orbstack"
 cask "zed"
 cask "obsidian"
 cask "lm-studio"
+cask "ghostty"
 
 # Brews
 brew "curl"
