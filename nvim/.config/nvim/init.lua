@@ -5,6 +5,8 @@ vim.pack.add({
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/projekt0n/github-nvim-theme",
 	"https://github.com/oskarnurm/koda.nvim",
+	"https://github.com/slugbyte/lackluster.nvim",
+	"https://github.com/savq/melange-nvim",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/mfussenegger/nvim-dap-python",
 	"https://github.com/igorlfs/nvim-dap-view",
@@ -13,6 +15,7 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/nvim-tree/nvim-tree.lua",
 	"https://github.com/windwp/nvim-autopairs",
+	"https://github.com/kdheepak/lazygit.nvim",
 	"https://github.com/linrongbin16/gitlinker.nvim",
 	"https://github.com/mistweaverco/kulala.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
@@ -23,7 +26,7 @@ vim.pack.add({
 })
 
 -- Theme
-vim.cmd("colorscheme koda")
+vim.cmd("colorscheme lackluster-hack")
 
 -- which-key
 local wk = require("which-key")
@@ -187,6 +190,10 @@ require("gitlinker").setup({
 vim.keymap.set({ "n", "v" }, "<leader>gy", "<cmd>GitLink<cr>", { silent = true, desc = "Copy Git Link" })
 vim.keymap.set({ "n", "v" }, "<leader>go", "<cmd>GitLink!<cr>", { silent = true, desc = "Open Git Link" })
 
+-- lazygit
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { silent = true, desc = "LazyGit" })
+vim.keymap.set("n", "<leader>gf", "<cmd>LazyGitCurrentFile<cr>", { silent = true, desc = "LazyGit Current File" })
+
 -- kulala.nvim (HTTP client)
 require("kulala").setup({
 	split_direction = "vertical",
@@ -259,14 +266,30 @@ require("conform").setup({
 })
 
 -- nvim-dap/debugging
-require("dap-python").setup("$HOME/.venv/bin/python")
+-- Resolve the project-local venv python, falling back to ~/.venv/bin/python
+local function get_python_path()
+	local venv = os.getenv("VIRTUAL_ENV")
+	if venv then
+		return venv .. "/bin/python"
+	end
+	local cwd_venv = vim.fn.getcwd() .. "/.venv/bin/python"
+	if vim.fn.executable(cwd_venv) == 1 then
+		return cwd_venv
+	end
+	return vim.fn.expand("$HOME/.venv/bin/python")
+end
+
+require("dap-python").setup(get_python_path())
+require("dap-python").resolve_python = get_python_path
 
 -- nvim-dap-view setup
--- require("dap-view").setup({
--- 	terminal = {
--- 		start_hidden = false, -- Show terminal when debug session starts
--- 	},
--- })
+require("dap-view").setup({
+	windows = {
+		terminal = {
+			start_hidden = false,
+		},
+	},
+})
 vim.keymap.set("n", "<leader>dn", "<Cmd>DapNew<CR>", {
 	noremap = true,
 	silent = true,

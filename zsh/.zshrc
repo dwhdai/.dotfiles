@@ -77,3 +77,7 @@ if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/op
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/daviddai/.lmstudio/bin"
 # End of LM Studio CLI section
+
+
+# Secrets
+export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)

@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 # Taps
 tap "FelixKratz/formulae"
+tap "atlassian/homebrew-acli"
 
 # Casks
 cask "spotify"
@@ -23,6 +24,7 @@ cask "zed"
 cask "obsidian"
 cask "lm-studio"
 cask "ghostty"
+cask "cmux"
 
 # Brews
 brew "curl"
@@ -55,3 +57,4 @@ brew "tree-sitter"
 brew "opencode"
 brew "ollama"
 brew "temporal"
+brew "acli"
