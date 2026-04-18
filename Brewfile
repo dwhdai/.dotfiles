@@ -25,6 +25,7 @@ cask "obsidian"
 cask "lm-studio"
 cask "ghostty"
 cask "cmux"
+cask "codex"
 
 # Brews
 brew "curl"

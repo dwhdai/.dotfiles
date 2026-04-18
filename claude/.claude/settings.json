@@ -28,7 +28,6 @@
       "/Users/daviddai/obsidian-vault"
     ]
   },
-  "model": "sonnet[1m]",
   "hooks": {
     "Stop": [
       {
@@ -50,5 +49,6 @@
     "code-simplifier@claude-plugins-official": true,
     "code-review@claude-plugins-official": true
   },
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "model": "opus[1m]"
 }
