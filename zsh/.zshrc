@@ -81,3 +81,4 @@ export PATH="$PATH:/Users/daviddai/.lmstudio/bin"
 
 # Secrets
 export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)
+export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
