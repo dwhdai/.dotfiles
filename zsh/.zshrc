@@ -31,6 +31,8 @@ bindkey '^[[3;3~' kill-word
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
 export PATH="/Users/david/.local/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
 
 # pyenv paths
@@ -62,7 +64,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-alias claude="/Users/daviddai/.claude/local/claude"
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -72,3 +73,12 @@ if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/home
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/daviddai/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+# Secrets
+export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)
+export GITHUB_TOKEN=$(gh auth token 2>/dev/null)

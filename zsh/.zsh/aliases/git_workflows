@@ -1,0 +1,236 @@
+# Git aliases
+alias g='git'
+alias gss='git status'
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gbD='git branch -D'
+alias gc='git commit -v'
+alias gcb='git checkout -b'
+alias gk='git checkout'
+alias gd='git diff'
+alias gp='git pull'
+alias gu='git push'
+alias gw='git switch'
+alias grm='git fetch origin main:main && git rebase main'
+
+# Delete all local branches matching a pattern.
+# Usage: gbdp <pattern>
+#   gbdp dd       - delete all branches starting with "dd"
+#   gbdp feature  - delete all branches starting with "feature"
+gbdp() {
+  local pattern="$1"
+  if [[ -z "$pattern" ]]; then
+    echo "Usage: gbdp <pattern>"
+    echo "  Deletes all local branches starting with the given pattern."
+    return 1
+  fi
+
+  local branches
+  branches=($(git branch --list "$pattern*" | sed 's/^[* ]*//' ))
+
+  if [[ ${#branches[@]} -eq 0 ]]; then
+    echo "No branches matching '$pattern*'"
+    return 0
+  fi
+
+  echo "Branches to delete:"
+  printf "  %s\n" "${branches[@]}"
+  echo ""
+  read -q "reply?Delete these branches? [y/N] "
+  echo ""
+
+  if [[ "$reply" == "y" ]]; then
+    git branch -D "${branches[@]}"
+  else
+    echo "Aborted."
+  fi
+}
+
+# Worktree aliases
+alias gwl='git worktree list'
+
+# Create a new git worktree and symlink shared dotfiles from the parent directory.
+# Usage: gwt <branch> [-b]
+#   gwt my-feature        - create worktree for existing remote branch
+#   gwt my-feature -b     - create worktree with new branch off main
+gwt() {
+  local branch="$1"
+  local new_branch="$2"
+
+  if [[ -z "$branch" ]]; then
+    echo "Usage: gwt <branch> [-b]"
+    echo "  gwt <branch>       checkout existing branch into new worktree"
+    echo "  gwt <branch> -b    create new branch off main into new worktree"
+    return 1
+  fi
+
+  # Must be inside a bare repo worktree setup (parent has .bare/)
+  local parent
+  parent="$(git rev-parse --git-common-dir 2>/dev/null)"
+  if [[ -z "$parent" ]]; then
+    echo "Error: not inside a git repository"
+    return 1
+  fi
+  # Resolve to the directory containing .bare/
+  parent="$(dirname "$parent")"
+
+  if [[ ! -d "$parent/.bare" ]]; then
+    echo "Error: not inside a bare repo worktree setup (no .bare/ found in $parent)"
+    return 1
+  fi
+
+  local worktree_dir="$parent/$branch"
+
+  if [[ -d "$worktree_dir" ]]; then
+    echo "Error: directory $worktree_dir already exists"
+    return 1
+  fi
+
+  # Create worktree
+  if [[ "$new_branch" == "-b" ]]; then
+    git worktree add "$worktree_dir" -b "$branch" main
+  else
+    git fetch origin "$branch" 2>/dev/null
+    git worktree add -b "$branch" "$worktree_dir" "origin/$branch"
+  fi
+
+  if [[ $? -ne 0 ]]; then
+    echo "Error: failed to create worktree"
+    return 1
+  fi
+
+  # Symlink shared dotfiles from parent directory
+  local count=0
+  for item in "$parent"/.*; do
+    local name="$(basename "$item")"
+    # Skip special entries and git internals
+    [[ "$name" == "." || "$name" == ".." ]] && continue
+    [[ "$name" == ".bare" || "$name" == ".git" ]] && continue
+    # Skip if target already exists
+    [[ -e "$worktree_dir/$name" || -L "$worktree_dir/$name" ]] && continue
+
+    ln -s "../$name" "$worktree_dir/$name"
+    echo "  linked $name"
+    ((count++))
+  done
+
+  echo "Worktree created at $worktree_dir ($count dotfiles linked)"
+}
+
+# Remove a git worktree.
+# Usage: gwr <branch>
+gwr() {
+  local branch="$1"
+  local force="$2"
+
+  if [[ -z "$branch" ]]; then
+    echo "Usage: gwr <branch> [--force]"
+    return 1
+  fi
+
+  local parent
+  parent="$(git rev-parse --git-common-dir 2>/dev/null)"
+  if [[ -z "$parent" ]]; then
+    echo "Error: not inside a git repository"
+    return 1
+  fi
+  parent="$(dirname "$parent")"
+
+  if [[ ! -d "$parent/.bare" ]]; then
+    echo "Error: not inside a bare repo worktree setup (no .bare/ found in $parent)"
+    return 1
+  fi
+
+  local worktree_dir="$parent/$branch"
+
+  if [[ ! -d "$worktree_dir" ]]; then
+    echo "Error: worktree $worktree_dir does not exist"
+    return 1
+  fi
+
+  git worktree remove $force "$worktree_dir"
+}
+
+# Clean up worktrees whose remote branches have been deleted (merged/removed).
+# Usage: gwc
+# Switch to a git worktree via fzf, opening it in a new tmux window.
+# Usage: gws
+gws() {
+  local selected
+  selected=$(git worktree list | grep -v '(bare)' | fzf --height=40% --reverse | awk '{print $1}')
+  [[ -z "$selected" ]] && return 0
+
+  local window_name
+  window_name="$(basename "$selected")"
+
+  tmux new-window -n "$window_name" -c "$selected"
+}
+
+gwc() {
+  local parent
+  parent="$(git rev-parse --git-common-dir 2>/dev/null)"
+  if [[ -z "$parent" ]]; then
+    echo "Error: not inside a git repository"
+    return 1
+  fi
+  parent="$(dirname "$parent")"
+
+  if [[ ! -d "$parent/.bare" ]]; then
+    echo "Error: not inside a bare repo worktree setup (no .bare/ found in $parent)"
+    return 1
+  fi
+
+  # Prune stale remote tracking refs
+  git fetch --prune
+
+  local stale=()
+  while IFS= read -r line; do
+    # Skip bare root
+    [[ "$line" == *"(bare)"* ]] && continue
+
+    local wt_path="${line%% *}"
+
+    # Extract branch name from [branch]
+    [[ "$line" != *"["* ]] && continue
+    local wt_branch="${line##*\[}"
+    wt_branch="${wt_branch%\]}"
+
+    # Skip main/master
+    [[ "$wt_branch" == "main" || "$wt_branch" == "master" ]] && continue
+
+    # Skip branches that were never pushed (no upstream configured)
+    local remote="$(git config --get "branch.$wt_branch.remote" 2>/dev/null)"
+    [[ -z "$remote" ]] && continue
+
+    # Check if the branch still exists on the remote
+    if ! git ls-remote --exit-code --heads origin "$wt_branch" &>/dev/null; then
+      stale+=("$wt_branch:$wt_path")
+    fi
+  done < <(git worktree list)
+
+  if [[ ${#stale[@]} -eq 0 ]]; then
+    echo "No stale worktrees found."
+    return 0
+  fi
+
+  echo "Worktrees with deleted remote branches:"
+  for entry in "${stale[@]}"; do
+    echo "  ${entry%%:*} (${entry#*:})"
+  done
+
+  echo ""
+  read -q "reply?Remove these worktrees? [y/N] "
+  echo ""
+
+  if [[ "$reply" == "y" ]]; then
+    for entry in "${stale[@]}"; do
+      local wt_path="${entry#*:}"
+      echo "Removing $wt_path..."
+      git worktree remove --force "$wt_path"
+    done
+    echo "Done."
+  else
+    echo "Aborted."
+  fi
+}
