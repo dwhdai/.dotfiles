@@ -104,6 +104,7 @@ vim.opt.smartindent = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.autoread = true
 vim.opt.foldmethod = "manual"
+vim.opt.swapfile = false
 
 -- Filetype associations
 vim.filetype.add({
@@ -193,6 +194,12 @@ vim.keymap.set({ "n", "v" }, "<leader>go", "<cmd>GitLink!<cr>", { silent = true,
 -- lazygit
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { silent = true, desc = "LazyGit" })
 vim.keymap.set("n", "<leader>gf", "<cmd>LazyGitCurrentFile<cr>", { silent = true, desc = "LazyGit Current File" })
+
+-- treesitter: ensure http parser is installed
+local ts_installed = require("nvim-treesitter").get_installed("parsers")
+if not vim.tbl_contains(ts_installed, "http") then
+	require("nvim-treesitter").install({ "http" })
+end
 
 -- kulala.nvim (HTTP client)
 require("kulala").setup({
