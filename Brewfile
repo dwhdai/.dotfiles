@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 # Taps
 tap "FelixKratz/formulae"
+tap "jundot/omlx", "https://github.com/jundot/omlx"
 
 # Casks
 cask "google-chrome"
@@ -29,6 +30,7 @@ brew "neovim"
 brew "direnv"
 brew "pipx"
 brew "uv"
+brew "ruff"
 brew "poetry"
 brew "pre-commit"
 brew "antidote"
@@ -46,3 +48,5 @@ brew "tree-sitter"
 brew "tree-sitter-cli"
 brew "opencode"
 brew "borders"
+brew "omlx"
+brew "llmfit"
