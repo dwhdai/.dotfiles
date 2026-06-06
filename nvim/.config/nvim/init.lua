@@ -247,11 +247,22 @@ vim.lsp.config("ruff", {
 })
 vim.lsp.enable("ruff")
 
+vim.lsp.config("ts_ls", {
+	cmd = { "typescript-language-server", "--stdio" },
+	root_markers = { "tsconfig.json", "package.json", ".git" },
+	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+})
+vim.lsp.enable("ts_ls")
+
 require("conform").setup({
 	formatters_by_ft = {
 		python = { "ruff_organize_imports", "ruff_format" },
 		lua = { "stylua" },
 		json = { "prettier" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
 	},
 	format_after_save = function(bufnr)
 		-- Disable autoformat on save for http files
