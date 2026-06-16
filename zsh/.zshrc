@@ -1,4 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of $HOME/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -30,7 +30,7 @@ bindkey '^[[3;3~' kill-word
 # Path additions
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
-export PATH="/Users/david/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
@@ -45,15 +45,14 @@ eval "$(direnv hook zsh)"
 
 autoload -Uz compinit && compinit
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # Created by `pipx` on 2024-03-16 23:21:16
-export PATH="$PATH:/Users/daviddai/.local/bin"
-#. /Users/david/.evenup_zshrc
+export PATH="$PATH:$HOME/.local/bin"
 
 # bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
@@ -75,10 +74,22 @@ if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/home
 if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/daviddai/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
 
 # Secrets
 export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

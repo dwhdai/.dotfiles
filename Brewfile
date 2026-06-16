@@ -1,10 +1,15 @@
 cask_args appdir: "/Applications"
 
 # Taps
-tap "FelixKratz/formulae"
-tap "jundot/omlx", "https://github.com/jundot/omlx"
+tap "FelixKratz/formulae", trusted: true
+#tap "jundot/omlx", "https://github.com/jundot/omlx", trusted: true
+tap "oven-sh/bun", "https://github.com/oven-sh/bun"
 
 # Casks
+cask "1password"
+cask "zoom"
+cask "notion"
+cask "slack"
 cask "google-chrome"
 cask "bitwarden"
 cask "linearmouse"
@@ -15,8 +20,11 @@ cask "visual-studio-code"
 cask "obsidian"
 cask "ghostty"
 cask "claude-code"
+cask "codex"
 cask "stats"
 cask "claude"
+cask "stats"
+cask "orbstack"
 
 # Brews
 brew "curl"
@@ -39,14 +47,13 @@ brew "gpg"
 brew "fd"
 brew "tmuxinator"
 brew "tpm"
-brew "node"
 brew "zoxide"
 brew "lazygit"
 brew "luarocks"
 brew "fzf"
 brew "tree-sitter"
 brew "tree-sitter-cli"
-brew "opencode"
 brew "borders"
-brew "omlx"
+#brew "omlx"
 brew "llmfit"
+brew "bun"

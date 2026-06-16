@@ -142,8 +142,8 @@ vim.keymap.set("n", "<leader>fa", function()
 	require("fzf-lua").files({ cmd = "fd --type f --hidden --no-ignore" })
 end, { desc = "FzfLua: Find ALL Files (including ignored)" })
 vim.keymap.set("n", "<leader>fF", function()
-	require("fzf-lua").files({ cwd = "~/evenup-ai" })
-end, { desc = "FzfLua: Find Files (cwd)" })
+	require("fzf-lua").files({ cwd = vim.env.HOME })
+end, { desc = "FzfLua: Find Files (home)" })
 vim.keymap.set("n", "<leader>fg", function()
 	require("fzf-lua").live_grep()
 end, { desc = "FzfLua: Live Grep" })
@@ -284,7 +284,7 @@ require("conform").setup({
 })
 
 -- nvim-dap/debugging
--- Resolve the project-local venv python, falling back to ~/.venv/bin/python
+-- Resolve the project-local venv python, falling back to $HOME/.venv/bin/python
 local function get_python_path()
 	local venv = os.getenv("VIRTUAL_ENV")
 	if venv then
