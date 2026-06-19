@@ -28,6 +28,7 @@ bindkey '^[[3;3~' kill-word
 
 
 # Path additions
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -82,14 +83,20 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
 
+
+
 # pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
+export PNPM_HOME="/Users/david/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH" ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+case ":$PATH:" in
+  *":$PNPM_HOME/nodejs_current/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/nodejs_current/bin:$PATH" ;;
 esac
 # pnpm end
 
-# Volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+# openjdk
+export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/openjdk/include"
+export JAVA_HOME="$(/usr/libexec/java_home)"

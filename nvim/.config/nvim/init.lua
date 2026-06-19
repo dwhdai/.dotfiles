@@ -258,6 +258,11 @@ vim.lsp.config("ts_ls", {
 	cmd = { "typescript-language-server", "--stdio" },
 	root_markers = { "tsconfig.json", "package.json", ".git" },
 	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	init_options = {
+		-- Large monorepos (e.g. hightouch) blow past tsserver's default ~3GB heap
+		-- and the server silently OOMs, breaking go-to-definition. Bump it.
+		maxTsServerMemory = 8192,
+	},
 })
 vim.lsp.enable("ts_ls")
 
