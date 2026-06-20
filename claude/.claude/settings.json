@@ -1,0 +1,22 @@
+{
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "ccstatusline",
+    "padding": 0,
+    "refreshInterval": 5
+  },
+  "effortLevel": "high",
+  "theme": "dark",
+  "skipWorkflowUsageWarning": true,
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "afplay /System/Library/Sounds/Glass.aiff" }
+        ]
+      }
+    ]
+  }
+}
