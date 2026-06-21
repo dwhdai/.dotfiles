@@ -88,15 +88,14 @@ export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
 # pnpm
 export PNPM_HOME="/Users/david/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-case ":$PATH:" in
-  *":$PNPM_HOME/nodejs_current/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/nodejs_current/bin:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
 
 # openjdk
 export CPPFLAGS="$CPPFLAGS -I/opt/homebrew/opt/openjdk/include"
 export JAVA_HOME="$(/usr/libexec/java_home)"
+
+# git-spice shorthand
+alias gs=git-spice
