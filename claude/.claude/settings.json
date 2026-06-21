@@ -9,6 +9,9 @@
   "effortLevel": "high",
   "theme": "dark",
   "skipWorkflowUsageWarning": true,
+  "permissions": {
+    "additionalDirectories": ["/Users/david/Documents/ht-vault"]
+  },
   "hooks": {
     "Notification": [
       {
