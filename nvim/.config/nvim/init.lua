@@ -254,17 +254,47 @@ vim.lsp.config("ruff", {
 })
 vim.lsp.enable("ruff")
 
-vim.lsp.config("ts_ls", {
-	cmd = { "typescript-language-server", "--stdio" },
-	root_markers = { "tsconfig.json", "package.json", ".git" },
+-- Raise the LSP log level so :LspLog captures server lifecycle + crashes.
+-- The default (WARN) left the log nearly empty, giving no visibility when
+-- tsserver silently OOM'd. INFO records spawn/exit/restart without the flood
+-- of DEBUG/TRACE rpc traffic. Inspect with :LspLog.
+vim.lsp.log.set_level(vim.log.levels.INFO)
+
+-- vtsls: a thin wrapper around tsserver that handles large TS monorepos far
+-- better than typescript-language-server (smarter project loading, less memory
+-- thrash, robust cross-package go-to-definition).
+vim.lsp.config("vtsls", {
+	cmd = { "vtsls", "--stdio" },
+	-- Root detection priority matters in monorepos: prefer the workspace root
+	-- (pnpm-workspace.yaml / lock) so ONE tsserver serves the whole repo.
+	-- Otherwise each package's own tsconfig.json/package.json would spawn a
+	-- separate server, fragmenting the project and silently breaking
+	-- cross-package go-to-def/hover until each slice finishes indexing.
+	-- Falls through to tsconfig/package.json/.git for normal single projects.
+	root_markers = { "pnpm-workspace.yaml", "pnpm-lock.yaml", "tsconfig.json", "package.json", ".git" },
 	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-	init_options = {
-		-- Large monorepos (e.g. hightouch) blow past tsserver's default ~3GB heap
-		-- and the server silently OOMs, breaking go-to-definition. Bump it.
-		maxTsServerMemory = 8192,
+	settings = {
+		-- Large monorepos (e.g. hightouch) blow past tsserver's default ~3GB
+		-- heap and the server silently OOMs, breaking go-to-definition.
+		-- Starting at 8GB with a single workspace-wide server; monitor and bump
+		-- if it still OOMs (48GB RAM available).
+		typescript = {
+			tsserver = {
+				maxTsServerMemory = 8192,
+			},
+		},
+		javascript = {
+			tsserver = {
+				maxTsServerMemory = 8192,
+			},
+		},
+		vtsls = {
+			-- Use the repo's local TypeScript (5.7.3) rather than the bundled one.
+			autoUseWorkspaceTsdk = true,
+		},
 	},
 })
-vim.lsp.enable("ts_ls")
+vim.lsp.enable("vtsls")
 
 require("conform").setup({
 	formatters_by_ft = {
