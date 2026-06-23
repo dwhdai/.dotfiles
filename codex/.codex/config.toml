@@ -21,3 +21,25 @@ status_line_use_colors = true
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
+
+[marketplaces.ponytail]
+last_updated = "2026-06-23T19:13:23Z"
+source_type = "git"
+source = "https://github.com/DietrichGebert/ponytail.git"
+
+[plugins."github@openai-api-curated"]
+enabled = true
+
+[plugins."notion@openai-api-curated"]
+enabled = true
+
+[plugins."ponytail@ponytail"]
+enabled = true
+
+[hooks.state]
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
+trusted_hash = "sha256:195e73e498a4cdb40bbe765719d39371ac72c0ebb084fee1beee9d28d21fb7a0"
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:f79c8de133c1109b841f9835a9d032231900a0d96ecf5f6d1866132df5ca4aa4"
