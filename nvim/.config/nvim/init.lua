@@ -26,6 +26,23 @@ vim.pack.add({
 })
 
 -- Theme
+-- Keep lackluster-hack's near-black (#101010) background but raise the contrast
+-- on the dimmest syntax tokens, which are what make the default hard to read.
+require("lackluster").setup({
+	tweak_syntax = {
+		comment = "#6a6a6a", -- was #3A3A3A (nearly invisible)
+		keyword = "#7788AA", -- async/export/const/etc. — muted blue (palette `blue`)
+		builtin = "#9a9a9a", -- was #555555
+		type = "#789978", -- `type`, type names — muted green (palette `green`)
+		string = "#8fa3b8", -- slightly brighter than the default muted blue-gray
+	},
+	tweak_highlight = {
+		-- Operators (=, =>, +, &&, ...) aren't covered by tweak_syntax; tint them
+		-- a subtle blue-gray (palette `lack`) so they read as colored but stay quiet.
+		["Operator"] = { fg = "#708090" },
+		["@operator"] = { fg = "#708090" },
+	},
+})
 vim.cmd("colorscheme lackluster-hack")
 
 -- which-key

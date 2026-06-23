@@ -1,25 +1,49 @@
 {
+  "permissions": {
+    "additionalDirectories": [
+      "/Users/david/Documents/ht-vault"
+    ]
+  },
   "model": "opus[1m]",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "ccstatusline",
     "padding": 0,
     "refreshInterval": 5
   },
-  "effortLevel": "high",
-  "theme": "dark",
-  "skipWorkflowUsageWarning": true,
-  "permissions": {
-    "additionalDirectories": ["/Users/david/Documents/ht-vault"]
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "ponytail@ponytail": true
   },
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          { "type": "command", "command": "afplay /System/Library/Sounds/Glass.aiff" }
-        ]
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
       }
-    ]
-  }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "agentPushNotifEnabled": true
 }

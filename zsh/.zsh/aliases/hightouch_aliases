@@ -1,4 +1,8 @@
 # Hightouch aliases
+
+# claude code — always include ht-vault as a workspace dir (for @ file mentions)
+alias claude='claude --add-dir ~/Documents/ht-vault'
+
 alias replica="psql -h production-htdb-replica -U readonly -d htdb --set=PROMPT1='%[%033[33m%][replica] %/%R%#%[%033[0m%]'"
 alias localdb="psql -h localhost -p 5432 -U htu -d htdb --set=PROMPT1='%[%033[32m%][localhost] %/%R%#%[%033[0m%]'"
 alias local_agents_db="PGPASSWORD=this_password_is_only_used_in_dev PGOPTIONS='-c search_path=ad_artifacts,hightouch_content,competitor_ads,public' psql -h localhost -p 5435 -U agents -d agents --set=PROMPT1='%[%033[32m%][localhost] %/%R%#%[%033[0m%]'"
