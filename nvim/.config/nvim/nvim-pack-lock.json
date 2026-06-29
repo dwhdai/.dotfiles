@@ -4,6 +4,10 @@
       "rev": "ffe26e8df8115c9665d24231f8a49fadb2d611ce",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "everforest-nvim": {
+      "rev": "d235ca0aa6a29546e661a020e2618612acbbffbe",
+      "src": "https://github.com/neanias/everforest-nvim"
+    },
     "fidget.nvim": {
       "rev": "64463022a1f2ff1318ab22a2ea4125ed9313a483",
       "src": "https://github.com/j-hui/fidget.nvim"
