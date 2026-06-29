@@ -6,7 +6,7 @@ vim.pack.add({
 	"https://github.com/projekt0n/github-nvim-theme",
 	"https://github.com/oskarnurm/koda.nvim",
 	"https://github.com/slugbyte/lackluster.nvim",
-	"https://github.com/neanias/everforest-nvim",
+	"https://github.com/junegunn/seoul256.vim",
 	"https://github.com/savq/melange-nvim",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/mfussenegger/nvim-dap-python",
@@ -27,11 +27,10 @@ vim.pack.add({
 })
 
 -- Theme
--- everforest "hard" background (#2b3339) matches the ghostty "Everforest Dark Hard" theme.
-require("everforest").setup({
-	background = "hard",
-})
-vim.cmd("colorscheme everforest")
+-- seoul256 dark. Background 233 (darkest) .. 239; 235 is a touch darker than the
+-- 237 default. ghostty pairs with "Seoulbones Dark" (an inspired-by relative).
+vim.g.seoul256_background = 235
+vim.cmd("colorscheme seoul256")
 
 -- which-key
 local wk = require("which-key")
