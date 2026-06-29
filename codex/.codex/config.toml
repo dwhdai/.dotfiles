@@ -1,7 +1,8 @@
 model = "gpt-5.5"
 model_reasoning_effort = "high"
 plan_mode_reasoning_effort = "high"
-notify = ["afplay", "/System/Library/Sounds/Glass.aiff"]
+notify = ["bash", "/Users/david/.claude/hooks/peon-ping/adapters/codex.sh"]
+approvals_reviewer = "auto_review"
 
 [sandbox_workspace_write]
 writable_roots = ["/Users/david/Documents/ht-vault"]
@@ -10,6 +11,9 @@ writable_roots = ["/Users/david/Documents/ht-vault"]
 trust_level = "trusted"
 
 [projects."/Users/david/hightouchio/hightouch"]
+trust_level = "trusted"
+
+[projects."/Users/david"]
 trust_level = "trusted"
 
 [tui]
@@ -22,8 +26,12 @@ status_line_use_colors = true
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
 
+[mcp_servers.notion.tools.notion-update-page]
+approval_mode = "approve"
+
 [marketplaces.ponytail]
-last_updated = "2026-06-23T19:13:23Z"
+last_updated = "2026-06-29T14:14:07Z"
+last_revision = "bc9ee949d5f439e8b9f3bb92c6d6d3d1e6ebd324"
 source_type = "git"
 source = "https://github.com/DietrichGebert/ponytail.git"
 
@@ -39,7 +47,12 @@ enabled = true
 [hooks.state]
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
-trusted_hash = "sha256:195e73e498a4cdb40bbe765719d39371ac72c0ebb084fee1beee9d28d21fb7a0"
+trusted_hash = "sha256:35ad4fd900da217d98e6eb60198465bd10d55e21eacd72758621dc385145cc05"
+enabled = true
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:f79c8de133c1109b841f9835a9d032231900a0d96ecf5f6d1866132df5ca4aa4"
+trusted_hash = "sha256:22db2f951755c593f9deba5e69cd1be1c87e0c9b2f5538a13b5dd9911141793f"
+enabled = true
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:28c43eada804ad00a4e651d6af6320c01e763b1df060af0ab74865a55bc1c9a9"
