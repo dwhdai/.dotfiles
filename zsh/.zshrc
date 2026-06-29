@@ -79,12 +79,6 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
 
-# Secrets
-export TEMPORAL_API_KEY=$(security find-generic-password -a "daviddai" -s "TEMPORAL_API_KEY" -w 2>/dev/null)
-export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
-
-
-
 # pnpm
 export PNPM_HOME="/Users/david/Library/pnpm"
 case ":$PATH:" in
