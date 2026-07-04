@@ -2,7 +2,7 @@ cask_args appdir: "/Applications"
 
 # Taps
 tap "FelixKratz/formulae", trusted: true
-#tap "jundot/omlx", "https://github.com/jundot/omlx", trusted: true
+tap "jundot/omlx", "https://github.com/jundot/omlx", trusted: true
 tap "oven-sh/bun", "https://github.com/oven-sh/bun"
 
 # Casks
@@ -47,6 +47,8 @@ brew "gpg"
 brew "fd"
 brew "tmuxinator"
 brew "tpm"
+brew "node"
+brew "prettier"
 brew "zoxide"
 brew "lazygit"
 brew "luarocks"
@@ -54,7 +56,7 @@ brew "fzf"
 brew "tree-sitter"
 brew "tree-sitter-cli"
 brew "borders"
-#brew "omlx"
+brew "omlx"
 brew "llmfit"
 brew "bun"
 brew "awscli"
