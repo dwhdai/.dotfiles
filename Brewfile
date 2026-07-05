@@ -25,6 +25,7 @@ cask "claude"
 cask "stats"
 cask "orbstack"
 cask "ngrok"
+cask "notion"
 
 # Brews
 brew "curl"

@@ -3,9 +3,8 @@ alias cl='clear'
 alias vi='nvim'
 alias vim='nvim'
 
-# Kitten ssh
-#alias ssh="kitty +kitten ssh"
-
+# omlx
+alias pi-omlx="'/Applications/oMLX.app/Contents/MacOS/omlx-cli' launch pi"
 
 
 # python
