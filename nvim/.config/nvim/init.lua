@@ -199,11 +199,26 @@ vim.keymap.set({ "n", "v" }, "<leader>go", "<cmd>GitLink!<cr>", { silent = true,
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { silent = true, desc = "LazyGit" })
 vim.keymap.set("n", "<leader>gf", "<cmd>LazyGitCurrentFile<cr>", { silent = true, desc = "LazyGit Current File" })
 
--- treesitter: ensure http parser is installed
+-- treesitter: ensure parsers are installed
+local ts_ensure = { "http", "typescript", "tsx", "javascript" }
 local ts_installed = require("nvim-treesitter").get_installed("parsers")
-if not vim.tbl_contains(ts_installed, "http") then
-	require("nvim-treesitter").install({ "http" })
+local ts_missing = vim.tbl_filter(function(p)
+	return not vim.tbl_contains(ts_installed, p)
+end, ts_ensure)
+if #ts_missing > 0 then
+	require("nvim-treesitter").install(ts_missing)
 end
+
+-- nvim-treesitter (main branch) does NOT auto-enable highlighting; start it
+-- per-buffer on FileType for any language that has a parser installed.
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		local lang = vim.treesitter.language.get_lang(args.match)
+		if lang and vim.treesitter.language.add(lang) then
+			vim.treesitter.start(args.buf, lang)
+		end
+	end,
+})
 
 -- kulala.nvim (HTTP client)
 require("kulala").setup({
