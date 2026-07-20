@@ -40,6 +40,12 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Sticky windows aren't supported (https://github.com/nikitabobko/AeroSpace/issues/2),
+# so drag Wispr Flow's "Status" indicator to the focused workspace on every switch
+exec-on-workspace-change = ['/bin/bash', '-c', '''
+aerospace list-windows --monitor all --app-bundle-id com.electron.wispr-flow --format '%{window-id} %{window-title}' | awk '/Status/{print $1}' | xargs -I{} aerospace move-node-to-workspace --window-id {} "$AEROSPACE_FOCUSED_WORKSPACE"
+''']
+
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
@@ -200,3 +206,8 @@ run = 'move-node-to-workspace 8'
 [[on-window-detected]]
 if.app-id = 'dev.zed.Zed'
 run = 'move-node-to-workspace C'
+
+# Wispr Flow's hovering TTS indicator should never be tiled
+[[on-window-detected]]
+if.app-id = 'com.electron.wispr-flow'
+run = 'layout floating'

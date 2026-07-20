@@ -32,6 +32,10 @@
       "rev": "63cfbb7ba0465fa4a599f57c08c888abb188a595",
       "src": "https://github.com/linrongbin16/gitlinker.nvim"
     },
+    "guts.nvim": {
+      "rev": "4377fdf450bca2bfd571191b6dc6ae8e24faff77",
+      "src": "https://github.com/vossenwout/guts.nvim"
+    },
     "koda.nvim": {
       "rev": "20099d811b278df102a39985ee0f08e765cbcbfc",
       "src": "https://github.com/oskarnurm/koda.nvim"

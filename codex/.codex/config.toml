@@ -1,4 +1,4 @@
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 plan_mode_reasoning_effort = "high"
 notify = ["bash", "/Users/david/.claude/hooks/peon-ping/adapters/codex.sh"]
@@ -22,6 +22,7 @@ status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+"gpt-5.6-sol" = 4
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
@@ -30,8 +31,8 @@ url = "https://mcp.notion.com/mcp"
 approval_mode = "approve"
 
 [marketplaces.ponytail]
-last_updated = "2026-06-29T14:14:07Z"
-last_revision = "bc9ee949d5f439e8b9f3bb92c6d6d3d1e6ebd324"
+last_updated = "2026-07-16T16:46:39Z"
+last_revision = "16f29800fd2681bdf24f3eb4ccffe38be3baec6b"
 source_type = "git"
 source = "https://github.com/DietrichGebert/ponytail.git"
 
@@ -47,12 +48,12 @@ enabled = true
 [hooks.state]
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
-trusted_hash = "sha256:35ad4fd900da217d98e6eb60198465bd10d55e21eacd72758621dc385145cc05"
+trusted_hash = "sha256:5f81d38f47448a1581c08ec877e044d9e04dd6f814dce3f2671f7a8edadd719b"
 enabled = true
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:22db2f951755c593f9deba5e69cd1be1c87e0c9b2f5538a13b5dd9911141793f"
+trusted_hash = "sha256:6a6f42bc3b58d6262db38bfd74d7f340fcca2b09cdb134aad365063f0bfefca4"
 enabled = true
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:subagent_start:0:0"]
-trusted_hash = "sha256:28c43eada804ad00a4e651d6af6320c01e763b1df060af0ab74865a55bc1c9a9"
+trusted_hash = "sha256:1423b56c1322f96c8f74c51c1e7ae9a047b904c1fa43ee9165d462fd7a6e70ef"
