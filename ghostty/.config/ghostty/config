@@ -1,4 +1,6 @@
 font-family = FiraCode Nerd Font Mono
 font-size = 14
 macos-titlebar-style = hidden
-theme = light:GitHub Light Default,dark:guts
+# treat Option as Alt so alt+backspace etc. reach the shell (herdr/zsh word deletion)
+macos-option-as-alt = true
+theme = light:GitHub Light Default,dark:guts-pastel

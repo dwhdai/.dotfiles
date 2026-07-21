@@ -26,3 +26,6 @@ workspace_picker = "prefix+shift+s"
 
 # settings moved off prefix+s to make room for goto
 settings = "prefix+comma"
+
+# toggle spaces/agents sidebar
+toggle_sidebar = "prefix+b"
