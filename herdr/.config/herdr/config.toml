@@ -1,0 +1,31 @@
+# Keybindings mapped to match ~/.tmux.conf
+
+[keys]
+prefix = "ctrl+s"
+
+# splits (tmux: prefix+/ side-by-side, prefix+- stacked)
+split_vertical = "prefix+/"
+split_horizontal = "prefix+minus"
+
+# pane focus: prefix+hjkl, plus bare ctrl+hjkl like vim-tmux-navigator
+focus_pane_left = ["prefix+h", "ctrl+h"]
+focus_pane_down = ["prefix+j", "ctrl+j"]
+focus_pane_up = ["prefix+k", "ctrl+k"]
+focus_pane_right = ["prefix+l", "ctrl+l"]
+
+# kill pane / tab (tmux: prefix+w kill-pane, prefix+q kill-window)
+close_pane = "prefix+w"
+close_tab = "prefix+q"
+
+# detach like tmux default
+detach = "prefix+d"
+
+# session/workspace pickers (tmux: prefix+s choose-tree)
+goto = "prefix+s"
+workspace_picker = "prefix+shift+s"
+
+# settings moved off prefix+s to make room for goto
+settings = "prefix+comma"
+
+# toggle spaces/agents sidebar
+toggle_sidebar = "prefix+b"

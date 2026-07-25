@@ -97,3 +97,7 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 
 # git-spice shorthand
 alias gs=git-spice
+
+# peon-ping quick controls
+alias peon="bash /Users/david/.claude/hooks/peon-ping/peon.sh"
+[ -f /Users/david/.claude/hooks/peon-ping/completions.bash ] && source /Users/david/.claude/hooks/peon-ping/completions.bash

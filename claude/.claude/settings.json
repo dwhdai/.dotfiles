@@ -4,7 +4,7 @@
       "/Users/david/Documents/ht-vault"
     ]
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "Notification": [
       {
@@ -12,7 +12,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff"
+            "command": "grep -Eq '\"enabled\"[[:space:]]*:[[:space:]]*true' /Users/david/.claude/hooks/peon-ping/config.json || afplay /System/Library/Sounds/Glass.aiff"
           }
         ]
       },
@@ -77,6 +77,21 @@
             "async": true
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/david/.claude/hooks/peon-ping/scripts/hook-handle-use.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "/Users/david/.claude/hooks/peon-ping/scripts/hook-handle-rename.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Stop": [
@@ -130,6 +145,32 @@
           }
         ]
       }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/david/.claude/hooks/peon-ping/peon.sh",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/david/.claude/hooks/peon-ping/peon.sh",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -156,7 +197,7 @@
       }
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "voice": {
     "enabled": true,
     "mode": "hold"

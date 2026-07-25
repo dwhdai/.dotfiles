@@ -7,6 +7,7 @@ vim.pack.add({
 	"https://github.com/oskarnurm/koda.nvim",
 	"https://github.com/slugbyte/lackluster.nvim",
 	"https://github.com/junegunn/seoul256.vim",
+	"https://github.com/vossenwout/guts.nvim",
 	"https://github.com/savq/melange-nvim",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/mfussenegger/nvim-dap-python",
@@ -27,10 +28,9 @@ vim.pack.add({
 })
 
 -- Theme
--- seoul256 dark. Background 233 (darkest) .. 239; 235 is a touch darker than the
--- 237 default. ghostty pairs with "Seoulbones Dark" (an inspired-by relative).
-vim.g.seoul256_background = 235
-vim.cmd("colorscheme seoul256")
+-- guts.nvim: gritty dark muted Berserk-inspired palette. ghostty pairs via
+-- extras/ghostty/guts (copy into ghostty config manually).
+vim.cmd.colorscheme("guts")
 
 -- which-key
 local wk = require("which-key")
@@ -294,17 +294,17 @@ vim.lsp.config("vtsls", {
 	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
 	settings = {
 		-- Large monorepos (e.g. hightouch) blow past tsserver's default ~3GB
-		-- heap and the server silently OOMs, breaking go-to-definition.
-		-- Starting at 8GB with a single workspace-wide server; monitor and bump
-		-- if it still OOMs (48GB RAM available).
+		-- heap and the server OOMs (V8 abort -> SIGABRT -> restart loop every
+		-- ~60s). 8GB still OOM'd: the single workspace-wide program pegged at
+		-- 7.9GB while loading. 16GB holds it; 48GB RAM available.
 		typescript = {
 			tsserver = {
-				maxTsServerMemory = 8192,
+				maxTsServerMemory = 16384,
 			},
 		},
 		javascript = {
 			tsserver = {
-				maxTsServerMemory = 8192,
+				maxTsServerMemory = 16384,
 			},
 		},
 		vtsls = {

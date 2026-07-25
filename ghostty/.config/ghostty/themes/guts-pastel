@@ -1,0 +1,48 @@
+# guts-pastel — same hues as guts, lifted background + pastel palette
+
+# ANSI black
+palette = 0=#24262b
+# ANSI red
+palette = 1=#b57f76
+# ANSI green
+palette = 2=#7d8f9a
+# ANSI yellow
+palette = 3=#c9a29e
+# ANSI blue
+palette = 4=#91a2c0
+# ANSI magenta
+palette = 5=#a89ec1
+# ANSI cyan
+palette = 6=#a0aaa2
+# ANSI white
+palette = 7=#b8b6af
+
+# Bright ANSI black / gray
+palette = 8=#6a6175
+# Bright ANSI red
+palette = 9=#c99a91
+# Bright ANSI green
+palette = 10=#a7d8b0
+# Bright ANSI yellow
+palette = 11=#e1ffe5
+# Bright ANSI blue
+palette = 12=#a3a9c2
+# Bright ANSI magenta
+palette = 13=#bba4b6
+# Bright ANSI cyan
+palette = 14=#a9b6b5
+# Bright ANSI white
+palette = 15=#c6c5c0
+
+# Terminal background color
+background = #24262b
+# Default text color
+foreground = #b8b6af
+# Cursor color
+cursor-color = #b8b6af
+# Text color under the cursor
+cursor-text = #24262b
+# Background color for selected text
+selection-background = #6a6175
+# Foreground color for selected text
+selection-foreground = #e1ffe5
