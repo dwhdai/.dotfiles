@@ -55,6 +55,12 @@ require("nvim-autopairs").setup({
 -- mini.completion
 require("mini.completion").setup()
 
+-- mini.diff (gutter signs + hunk ops: gh apply, gH reset, [h/]h navigate)
+require("mini.diff").setup()
+vim.keymap.set("n", "<leader>gd", function()
+	require("mini.diff").toggle_overlay(0)
+end, { desc = "Toggle Diff Overlay" })
+
 -- render-markdown
 require("render-markdown").setup()
 
@@ -180,11 +186,25 @@ vim.keymap.set("n", "<leader>xq", vim.diagnostic.setqflist, { silent = true, des
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Go to Previous Diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { silent = true, desc = "Go to Next Diagnostic" })
 
--- Tmux navigator
-vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { silent = true, desc = "Navigate Left" })
-vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { silent = true, desc = "Navigate Down" })
-vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { silent = true, desc = "Navigate Up" })
-vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { silent = true, desc = "Navigate Right" })
+-- Tmux/herdr navigator: inside tmux use vim-tmux-navigator; inside a bare
+-- herdr pane, move vim windows and fall through to herdr at the edge
+local function navigate(win_dir, herdr_dir, tmux_cmd)
+	return function()
+		if vim.env.TMUX or not vim.env.HERDR_PANE_ID then
+			vim.cmd(tmux_cmd)
+			return
+		end
+		local before = vim.api.nvim_get_current_win()
+		vim.cmd.wincmd(win_dir)
+		if vim.api.nvim_get_current_win() == before then
+			vim.system({ "herdr", "pane", "focus", "--direction", herdr_dir })
+		end
+	end
+end
+vim.keymap.set("n", "<C-h>", navigate("h", "left", "TmuxNavigateLeft"), { silent = true, desc = "Navigate Left" })
+vim.keymap.set("n", "<C-j>", navigate("j", "down", "TmuxNavigateDown"), { silent = true, desc = "Navigate Down" })
+vim.keymap.set("n", "<C-k>", navigate("k", "up", "TmuxNavigateUp"), { silent = true, desc = "Navigate Up" })
+vim.keymap.set("n", "<C-l>", navigate("l", "right", "TmuxNavigateRight"), { silent = true, desc = "Navigate Right" })
 vim.keymap.set("n", "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", { silent = true, desc = "Navigate Previous" })
 
 -- gitlinker
