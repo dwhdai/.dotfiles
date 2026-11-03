@@ -4,6 +4,7 @@ cask_args appdir: "/Applications"
 tap "FelixKratz/formulae", trusted: true
 tap "jundot/omlx", "https://github.com/jundot/omlx", trusted: true
 tap "oven-sh/bun", "https://github.com/oven-sh/bun"
+tap "databricks/homebrew-tap", trusted: true
 
 # Casks
 cask "1password"
@@ -63,3 +64,7 @@ brew "bun"
 brew "awscli"
 brew "tuxedo"
 brew "herdr"
+brew "databricks"
+# harlequin: not via brew (adapters need same venv) — installed with:
+#   uv tool install harlequin --with harlequin-snowflake --with 'harlequin-databricks[databricks-sdk]'
+brew "lame"

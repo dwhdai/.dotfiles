@@ -33,6 +33,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.dotfiles/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 precmd () {print -Pn "\e]0;%~\a"}
 
@@ -68,6 +69,9 @@ bindkey '^[[B' history-substring-search-down
 # zoxide
 eval "$(zoxide init zsh)"
 
+# mise (pinned node/pnpm versions per-repo)
+eval "$(mise activate zsh)"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -101,3 +105,9 @@ alias gs=git-spice
 # peon-ping quick controls
 alias peon="bash /Users/david/.claude/hooks/peon-ping/peon.sh"
 [ -f /Users/david/.claude/hooks/peon-ping/completions.bash ] && source /Users/david/.claude/hooks/peon-ping/completions.bash
+
+# databricks M2M creds for harlequin — read from ~/.databrickscfg
+if [[ -f ~/.databrickscfg ]]; then
+  export DATABRICKS_CLIENT_ID=$(awk -F' *= *' '/^client_id/{print $2; exit}' ~/.databrickscfg)
+  export DATABRICKS_CLIENT_SECRET=$(awk -F' *= *' '/^client_secret/{print $2; exit}' ~/.databrickscfg)
+fi
