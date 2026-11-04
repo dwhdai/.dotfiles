@@ -33,6 +33,8 @@ brew "curl"
 brew "wget"
 brew "git"
 brew "gh"
+# gh-stack (stacked PRs): not supported by brew bundle — install with:
+#   gh extension install github/gh-stack
 brew "tmux"
 brew "stow"
 brew "pyenv"

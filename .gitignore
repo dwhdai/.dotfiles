@@ -7,3 +7,6 @@ herdr/.config/herdr/.plugins.lock
 herdr/.config/herdr/release-notes.json
 herdr/.config/herdr/session.json
 herdr/.config/herdr/session-snapshots/
+
+# harlequin: local only (internal infra identifiers, repo is public)
+harlequin/
