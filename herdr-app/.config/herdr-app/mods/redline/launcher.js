@@ -113,6 +113,7 @@ export class Launcher {
         } else this.requestError = "No origin remote: showing branches only.";
         this.status = null;
         this.select(cx);
+        this.fetchByNumber(cx); // a number typed while loading, or one the reload dropped
         if (this.repo.provider) {
           cx.notify();
           // Pipeline, unresolved threads, reviewers: nice to have, so a failure only hides them.
@@ -149,7 +150,12 @@ export class Launcher {
       this.looking ??= new Set();
       if (requestNumber(this.filter) !== n || this.looking.has(n) || this.requests.some((r) => r.number === n)) return;
       this.looking.add(n);
-      try { this.requests = [...this.requests, await getRequest(this.repo, n)]; this.select(cx); } catch { /* no such request */ }
+      try {
+        const r = await getRequest(this.repo, n); // await first: the list may have reloaded meanwhile
+        if (!this.requests.some((x) => x.number === n)) this.requests = [...this.requests, r];
+        this.select(cx);
+      } catch { /* no such request */ }
+      finally { this.looking.delete(n); }
       cx.notify();
     });
   }
@@ -368,7 +374,9 @@ export class Launcher {
         const argv = agentOpt?.argv;
         const task = taskOverride ?? (findings ? opt?.task?.(row, what, findings) : undefined);
         const space = spaces().find((s) => (s.machine ?? null) === repo.on
-          && panes().some((p) => p.cwd && (p.cwd === co.path || p.cwd.startsWith(co.path + "/")) && (s.tabs ?? []).some((t) => t.id === p.tab)));
+          && panes().some((p) => p.cwd && (p.cwd === co.path || p.cwd.startsWith(co.path + "/")) && (s.tabs ?? []).some((t) => t.id === p.tab)))
+          // ponytail (local patch): else open as a tab in the current space, if it's on the repo's machine.
+          ?? spaces().find((s) => s.id === focused()?.space && (s.machine ?? null) === repo.on);
         if (space) run("tab.new", { space: space.id, name: tabName, folder: co.path, argv, task });
         else run("space.new", { folder: co.path, machine: repo.on ?? "", tab: tabName, argv, task });
 
