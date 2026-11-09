@@ -67,21 +67,42 @@ export async function cli(name, args, opts = {}) {
 export async function listRequests(repo) {
   const on = repo.on;
   if (repo.provider === "github") {
-    const out = await cli("gh", ["pr", "list", "-R", `${repo.host}/${repo.repo}`, "--state", "open", "--limit", "50", "--json",
-      "number,title,headRefName,baseRefName,author,isDraft,updatedAt,url,isCrossRepository"], { on });
-    return JSON.parse(out).map((p) => ({
-      number: p.number, title: p.title, branch: p.headRefName, target: p.baseRefName, author: p.author?.login ?? "",
-      draft: p.isDraft, updated: Date.parse(p.updatedAt), url: p.url, fork: Boolean(p.isCrossRepository),
-    }));
+    // ponytail (local patch): busy repos have far more than 50 open PRs, so also load
+    // yours and the ones awaiting your review. Lost if redline is re-copied from upstream.
+    const list = (...extra) => cli("gh", ["pr", "list", "-R", `${repo.host}/${repo.repo}`, "--state", "open", "--limit", "50", ...extra, "--json",
+      "number,title,headRefName,baseRefName,author,isDraft,updatedAt,url,isCrossRepository"], { on }).then(JSON.parse);
+    const seen = new Set();
+    const prs = (await Promise.all([list(), list("--author", "@me"), list("--search", "review-requested:@me")]))
+      .flat().filter((p) => !seen.has(p.number) && seen.add(p.number)).sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+    return prs.map(ghRow);
   }
   const path = `projects/${encodeURIComponent(repo.repo)}/merge_requests?state=opened&per_page=50&order_by=updated_at`;
   const out = await cli("glab", ["api", "--hostname", repo.host, path], { on });
-  return JSON.parse(out).map((m) => ({
-    number: m.iid, title: m.title, branch: m.source_branch, target: m.target_branch, author: m.author?.username ?? "",
-    draft: Boolean(m.draft ?? m.work_in_progress), updated: Date.parse(m.updated_at), url: m.web_url,
-    fork: m.source_project_id !== m.target_project_id,
-  }));
+  return JSON.parse(out).map(glRow);
 }
+
+const ghRow = (p) => ({
+  number: p.number, title: p.title, branch: p.headRefName, target: p.baseRefName, author: p.author?.login ?? "",
+  draft: p.isDraft, updated: Date.parse(p.updatedAt), url: p.url, fork: Boolean(p.isCrossRepository),
+});
+const glRow = (m) => ({
+  number: m.iid, title: m.title, branch: m.source_branch, target: m.target_branch, author: m.author?.username ?? "",
+  draft: Boolean(m.draft ?? m.work_in_progress), updated: Date.parse(m.updated_at), url: m.web_url,
+  fork: m.source_project_id !== m.target_project_id,
+});
+
+// ponytail (local patch): one request by number, any state, for ones the list didn't load.
+export async function getRequest(repo, n) {
+  const on = repo.on;
+  if (repo.provider === "github") {
+    return ghRow(JSON.parse(await cli("gh", ["pr", "view", String(n), "-R", `${repo.host}/${repo.repo}`, "--json",
+      "number,title,headRefName,baseRefName,author,isDraft,updatedAt,url,isCrossRepository"], { on })));
+  }
+  return glRow(JSON.parse(await cli("glab", ["api", "--hostname", repo.host, `projects/${encodeURIComponent(repo.repo)}/merge_requests/${n}`], { on })));
+}
+
+// "56805", "#56805", "!123" or a PR / MR URL -> the number, else null.
+export const requestNumber = (s) => Number(/^\s*[#!]?(\d+)\s*$/.exec(s)?.[1] ?? /\/(?:pull|merge_requests)\/(\d+)/.exec(s)?.[1]) || null;
 
 // Local and origin branches, most recent commit first (for reviewing a branch with no request).
 export async function listBranches(repo) {

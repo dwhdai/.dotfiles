@@ -646,7 +646,7 @@ export class Review {
       .when(Boolean(a.start) && this.r.provider === "gitlab" && Boolean(this.r.number), (e) => e.child(div().px(12).pt(4).text_size(11).text_color(t.dim)
         .child(`GitLab comments go on one line: this one is posted on line ${lastLine}. Ask AI gets the whole range.`)))
       .child(h_flex().px(12).py(8).gap(8).items_center()
-        .child(this.button(t, "rv-ask", "Ask AI", (cx) => this.ask(cx), { disabled: Boolean(this.busy), tooltip: "Send these lines and your text to the agent beside the diff" }))
+        .child(this.button(t, "rv-ask", "Ask AI", (cx) => this.ask(cx), { disabled: Boolean(this.busy), tooltip: "Send these lines and your text to the agent beside the diff (⌃↩)" }))
         .child(div().flex_1())
         .when(Boolean(this.r.number) && Boolean(this.replyTo), (e) => e
           .child(this.button(t, "rv-reply-go", "Reply", (cx) => this.replyThread(cx), { primary: true, disabled: Boolean(this.busy), tooltip: "Post a reply in this thread now" })))
@@ -717,6 +717,7 @@ export class Review {
       .track_focus(this.view.handle)
       .on_modifiers_changed((e) => { this.shift = e.modifiers.shift; })
       .on_key_down((e, cx) => {
+        if (e.key === "enter" && e.modifiers.control && this.sel) { this.ask(cx); cx.stop_propagation(); return; }
         if (e.key === "escape" && (this.sel || this.confirm || this.replyTo || this.editing)) {
           this.sel = null; this.confirm = null; this.replyTo = null; this.editing = null;
           this.view.handle.focus(); cx.stop_propagation(); cx.notify();

@@ -3,7 +3,7 @@ import { v_flex, h_flex, InputState, Input, TextareaState, Textarea, TextView, P
 import {
   exec, focused, spaces, panes, theme, props, run, closeOverlay, openOverlay, knownAgents, home, shared, setShared, notify, agents, hc,
 } from "herdr";
-import { repoAt, listRequests, listBranches, checkout, git, msg } from "./lib.js";
+import { repoAt, listRequests, getRequest, requestNumber, listBranches, checkout, git, msg } from "./lib.js";
 import * as host from "./hosting.js";
 import { logo } from "./logo.js";
 import { overview, pipelineView, JOB_LOOK } from "./panels.js";
@@ -75,7 +75,7 @@ export class Launcher {
     });
     this.status = "Finding the repository…";
     this.input = InputState.new({ placeholder: "Filter requests and branches…" });
-    this.input.on("change", (_e, cx) => { this.filter = this.input.value(); this.at = 0; this.select(cx); });
+    this.input.on("change", (_e, cx) => { this.filter = this.input.value(); this.at = 0; this.select(cx); this.fetchByNumber(cx); });
     this.input.on("submit", (_e, cx) => this.start(this.current(), cx));
     this.replyBox = TextareaState.new({ placeholder: "Reply…", rows: 3 });
     this.commentBox = TextareaState.new({ placeholder: "Comment on the request…", rows: 3 });
@@ -141,8 +141,22 @@ export class Launcher {
     }
   }
 
+  // A number (or PR / MR URL) typed in the filter that the list didn't load: fetch just that one.
+  fetchByNumber(cx) {
+    const n = requestNumber(this.filter);
+    if (!n || !this.repo?.provider || this.requests.some((r) => r.number === n)) return;
+    cx.timer.after(400, async (cx) => {
+      this.looking ??= new Set();
+      if (requestNumber(this.filter) !== n || this.looking.has(n) || this.requests.some((r) => r.number === n)) return;
+      this.looking.add(n);
+      try { this.requests = [...this.requests, await getRequest(this.repo, n)]; this.select(cx); } catch { /* no such request */ }
+      cx.notify();
+    });
+  }
+
   rows() {
-    const f = this.filter.toLowerCase();
+    const num = requestNumber(this.filter);
+    const f = num && /\//.test(this.filter) ? String(num) : this.filter.toLowerCase().replace(/^[#!]/, "");
     const has = (s) => !f || s.toLowerCase().includes(f);
     const reqBranches = new Set(this.requests.map((r) => r.branch));
     const keep = (r) => (this.filterMode === "waiting" ? this.waitingOnMe(r) : this.filterMode === "mine" ? r.author === this.status2.me : true);
@@ -376,6 +390,13 @@ export class Launcher {
             },
           },
         });
+        // ponytail (local patch): split only opens right, so swap to put the agent on the right.
+        let diff = null;
+        for (let i = 0; i < 50 && !diff; i++) {
+          await pause(100);
+          diff = panes().find((p) => p.tab === tab && p.mod === "redline");
+        }
+        if (diff) run("pane.swap", { pane: pane.pane, target: diff.pane });
         this.close();
       } catch (e) {
         this.error = msg(e); this.busy = null;
