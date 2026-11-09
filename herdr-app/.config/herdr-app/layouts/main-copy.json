@@ -40,7 +40,7 @@
               "id": "agents",
               "type": "block",
               "content": {
-                "mod": "agents"
+                "mod": "herdr-critters"
               },
               "size": {
                 "weight": 1
@@ -152,7 +152,12 @@
                       "id": "changes",
                       "type": "block",
                       "content": {
-                        "mod": "changes"
+                        "mod": "gitview",
+                        "props": {
+                          "replaces": {
+                            "mod": "changes"
+                          }
+                        }
                       }
                     }
                   ],
@@ -193,11 +198,6 @@
     "width": 1,
     "color": "border"
   },
-  "titlebar": "none",
-  "traffic_lights": [
-    12,
-    16
-  ],
   "floating": [
     {
       "id": "herdr-nvim-sync",
@@ -210,5 +210,10 @@
       "edge": "bottom",
       "align": "end"
     }
+  ],
+  "titlebar": "none",
+  "traffic_lights": [
+    12,
+    16
   ]
 }

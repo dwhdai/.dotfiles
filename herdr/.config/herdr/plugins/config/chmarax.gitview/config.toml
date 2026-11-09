@@ -1,0 +1,2 @@
+# hide untracked files so branch scope (w) shows only the branch/PR diff
+show_untracked = false
