@@ -18,6 +18,7 @@ herdr-app/.config/herdr-app/layouts/*
 !herdr-app/.config/herdr-app/mods/
 herdr-app/.config/herdr-app/mods/*
 !herdr-app/.config/herdr-app/mods/prefix/
+!herdr-app/.config/herdr-app/mods/redline/
 # written by the app into every mod folder
 herdr-app/.config/herdr-app/mods/*/*.d.ts
 herdr-app/.config/herdr-app/mods/*/jsconfig.json
