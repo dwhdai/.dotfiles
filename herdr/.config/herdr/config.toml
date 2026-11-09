@@ -32,32 +32,11 @@ settings = "prefix+comma"
 # toggle spaces/agents sidebar
 toggle_sidebar = "prefix+b"
 
-# resize focused pane without entering resize mode (resize mode: prefix+r).
-# herdr has no built-in per-direction resize keys, so shell out to the CLI.
-
-[[keys.command]]
-key = "prefix+shift+h"
-type = "shell"
-command = "herdr pane resize --current --direction left"
-description = "resize pane left"
-
-[[keys.command]]
-key = "prefix+shift+j"
-type = "shell"
-command = "herdr pane resize --current --direction down"
-description = "resize pane down"
-
-[[keys.command]]
-key = "prefix+shift+k"
-type = "shell"
-command = "herdr pane resize --current --direction up"
-description = "resize pane up"
-
-[[keys.command]]
-key = "prefix+shift+l"
-type = "shell"
-command = "herdr pane resize --current --direction right"
-description = "resize pane right"
+# resize focused pane without entering resize mode (resize mode: prefix+r)
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
 
 # softer ping (Morse @ 50%, built with: afconvert -> lame --scale 0.5)
 [ui.sound]

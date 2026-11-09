@@ -15,6 +15,12 @@ herdr-app/.config/herdr-app/*
 !herdr-app/.config/herdr-app/layouts/
 herdr-app/.config/herdr-app/layouts/*
 !herdr-app/.config/herdr-app/layouts/main-copy.json
+!herdr-app/.config/herdr-app/mods/
+herdr-app/.config/herdr-app/mods/*
+!herdr-app/.config/herdr-app/mods/prefix/
+# written by the app into every mod folder
+herdr-app/.config/herdr-app/mods/*/*.d.ts
+herdr-app/.config/herdr-app/mods/*/jsconfig.json
 
 # harlequin: local only (internal infra identifiers, repo is public)
 harlequin/
