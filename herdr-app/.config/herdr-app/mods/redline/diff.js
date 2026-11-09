@@ -677,16 +677,23 @@ export class Review {
       .when(Boolean(r.url), (e) => e.child(this.button(t, "rv-web", "Open ↗", () => this.openUrl())));
 
     const files = v_flex().id("rv-files").w(240).h_full().flex_none().min_h(0).overflow_y_scrollbar().p(6).gap(1).border_r(1).border_color(t.border)
-      .children(this.files.map((f) => {
+      .children(this.files.flatMap((f, i) => {
         const name = f.path.split("/").pop(), nd = draftFiles.get(f.path), nt = threadFiles.get(f.path);
-        return h_flex().id(`rv-f-${f.path}`).h(26).flex_none().px(8).gap(6).items_center().rounded(6).cursor_pointer()
+        // ponytail (local patch): a folder header whenever the folder changes (git lists files
+        // sorted by path), start-truncated so the deep end of long paths stays visible.
+        const dir = f.path.slice(0, -name.length - 1), prev = this.files[i - 1]?.path;
+        const header = (i === 0 || prev.slice(0, prev.lastIndexOf("/")) !== dir) ? [
+          div().id(`rv-d-${f.path}`).flex_none().px(8).pt(i ? 8 : 2).pb(2).text_size(10.5).text_color(t.dim)
+            .overflow_hidden().whitespace_nowrap().text_ellipsis_start().tooltip(dir || "/").child(dir ? `${dir}/` : "/"),
+        ] : [];
+        return [...header, h_flex().id(`rv-f-${f.path}`).h(26).flex_none().pl(14).pr(8).gap(6).items_center().rounded(6).cursor_pointer()
           .when(this.open === f.path, (e) => e.bg(t.selected)).hover((s) => s.bg(t.hover))
           .on_click((_e, cx) => this.pick(f.path, cx)).tooltip(f.path)
           .child(div().flex_1().min_w(0).truncate().text_size(12).child(name))
           .when(Boolean(nd), (e) => e.child(div().text_size(10.5).text_color(t.accent).child(`●${nd}`)))
           .when(Boolean(nt), (e) => e.child(div().text_size(10.5).text_color(t.muted).child(`◆${nt}`)))
           .when(f.add > 0, (e) => e.child(div().text_size(10.5).text_color(t.ansi2).child(`+${f.add}`)))
-          .when(f.del > 0, (e) => e.child(div().text_size(10.5).text_color(t.ansi1).child(`−${f.del}`)));
+          .when(f.del > 0, (e) => e.child(div().text_size(10.5).text_color(t.ansi1).child(`−${f.del}`)))];
       }))
       .when(!this.files.length, (e) => e.child(div().p(8).text_size(12).text_color(t.dim)
         .child(this.error ?? (this.loading ? "Loading…" : "No changes against the target"))));
