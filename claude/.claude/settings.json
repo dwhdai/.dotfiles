@@ -7,6 +7,7 @@
       "/Users/david/Documents/ht-vault"
     ]
   },
+  "model": "fable",
   "hooks": {
     "SessionStart": [
       {
