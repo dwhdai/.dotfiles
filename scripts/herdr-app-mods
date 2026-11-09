@@ -6,11 +6,24 @@ set -eu
 
 herdr-app status >/dev/null 2>&1 || { echo "herdr-app-mods: open the Herdr app first" >&2; exit 1; }
 
+tmp=$(mktemp -d)
+
+# launchd can load herdr-app's checker job without starting it, and the
+# installers then time out on `herdr-app check`: start any such job by hand
+uid=$(id -u)
+while :; do
+  launchctl list | awk '/dev\.herdr\.check\./ { print $3 }' | while read -r job; do
+    launchctl kickstart "gui/$uid/$job" >/dev/null 2>&1 || true
+  done
+  sleep 0.3
+done &
+kicker=$!
+trap 'kill "$kicker" 2>/dev/null || true; rm -rf "$tmp"' EXIT
+trap 'exit 1' HUP INT TERM
+
 curl -fsSL https://raw.githubusercontent.com/ChmaraX/herdr-nvim/main/install.sh | sh -s -- --app
 curl -fsSL https://raw.githubusercontent.com/ChmaraX/herdr-gitview/main/install.sh | sh -s -- --app
 
 # herdr-critters has no release installer: run its repo's own install.sh
-tmp=$(mktemp -d)
-trap 'rm -rf "$tmp"' EXIT
 git clone -q --depth 1 https://github.com/izerozlu/herdr-critters "$tmp/herdr-critters"
 sh "$tmp/herdr-critters/install.sh"
