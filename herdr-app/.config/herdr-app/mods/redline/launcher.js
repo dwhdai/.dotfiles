@@ -374,7 +374,9 @@ export class Launcher {
         const argv = agentOpt?.argv;
         const task = taskOverride ?? (findings ? opt?.task?.(row, what, findings) : undefined);
         const space = spaces().find((s) => (s.machine ?? null) === repo.on
-          && panes().some((p) => p.cwd && (p.cwd === co.path || p.cwd.startsWith(co.path + "/")) && (s.tabs ?? []).some((t) => t.id === p.tab)));
+          && panes().some((p) => p.cwd && (p.cwd === co.path || p.cwd.startsWith(co.path + "/")) && (s.tabs ?? []).some((t) => t.id === p.tab)))
+          // ponytail (local patch): else open as a tab in the current space, if it's on the repo's machine.
+          ?? spaces().find((s) => s.id === focused()?.space && (s.machine ?? null) === repo.on);
         if (space) run("tab.new", { space: space.id, name: tabName, folder: co.path, argv, task });
         else run("space.new", { folder: co.path, machine: repo.on ?? "", tab: tabName, argv, task });
 
