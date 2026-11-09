@@ -66,6 +66,10 @@ brew "bun"
 brew "awscli"
 brew "tuxedo"
 brew "herdr"
+# herdr desktop app: no brew cask — install with:
+#   curl -fsSL https://releases.herdr.dev/app/install.sh | sh
+# herdr app mods (herdr-nvim, gitview, critters; app open; re-run to upgrade):
+#   herdr-app-mods
 brew "databricks"
 # harlequin: not via brew (adapters need same venv) — installed with:
 #   uv tool install harlequin --with harlequin-snowflake --with 'harlequin-databricks[databricks-sdk]'

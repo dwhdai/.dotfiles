@@ -30,6 +30,9 @@ vim.pack.add({
 -- Theme
 -- guts.nvim: gritty dark muted Berserk-inspired palette. ghostty pairs via
 -- extras/ghostty/guts (copy into ghostty config manually).
+-- set explicitly: nvim only auto-detects truecolor with a UI attached at
+-- startup, and herdr-nvim starts a headless server
+vim.opt.termguicolors = true
 vim.cmd.colorscheme("guts")
 
 -- which-key

@@ -8,5 +8,20 @@ herdr/.config/herdr/release-notes.json
 herdr/.config/herdr/session.json
 herdr/.config/herdr/session-snapshots/
 
+# herdr app: track only what's hand-edited; the rest is shipped or runtime state
+herdr-app/.config/herdr-app/*
+!herdr-app/.config/herdr-app/keys.json
+!herdr-app/.config/herdr-app/settings.json
+!herdr-app/.config/herdr-app/layouts/
+herdr-app/.config/herdr-app/layouts/*
+!herdr-app/.config/herdr-app/layouts/main-copy.json
+!herdr-app/.config/herdr-app/mods/
+herdr-app/.config/herdr-app/mods/*
+!herdr-app/.config/herdr-app/mods/prefix/
+!herdr-app/.config/herdr-app/mods/redline/
+# written by the app into every mod folder
+herdr-app/.config/herdr-app/mods/*/*.d.ts
+herdr-app/.config/herdr-app/mods/*/jsconfig.json
+
 # harlequin: local only (internal infra identifiers, repo is public)
 harlequin/

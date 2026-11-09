@@ -1,0 +1,16 @@
+#!/bin/sh
+# Install or upgrade the Herdr app mods the main-copy layout uses (their code
+# is downloaded, not kept in this repo). Run with the Herdr app open; keys and
+# layout edits are already in the repo, and the installers leave them as they are.
+set -eu
+
+herdr-app status >/dev/null 2>&1 || { echo "herdr-app-mods: open the Herdr app first" >&2; exit 1; }
+
+curl -fsSL https://raw.githubusercontent.com/ChmaraX/herdr-nvim/main/install.sh | sh -s -- --app
+curl -fsSL https://raw.githubusercontent.com/ChmaraX/herdr-gitview/main/install.sh | sh -s -- --app
+
+# herdr-critters has no release installer: run its repo's own install.sh
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+git clone -q --depth 1 https://github.com/izerozlu/herdr-critters "$tmp/herdr-critters"
+sh "$tmp/herdr-critters/install.sh"
