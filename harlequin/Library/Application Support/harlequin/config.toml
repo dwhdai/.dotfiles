@@ -1,0 +1,13 @@
+# Global Harlequin settings, shared across machines. Connection profiles
+# (hosts, accounts, creds) are machine-local in ~/.harlequin.toml, which is
+# not tracked. Harlequin merges keymaps across both files, but keymap_name is
+# a per-profile option, so each local profile must opt in with:
+#
+#   keymap_name = ["vscode", "custom"]
+
+# Layered on top of vscode. Bindings add to, not replace, vscode's, so
+# ctrl+underscore (what legacy terminals send for ctrl+/) still works too.
+[[keymaps.custom]]
+keys = "ctrl+slash"
+action = "code_editor.toggle_comment"
+key_display = "ctrl+/"

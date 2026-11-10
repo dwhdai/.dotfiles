@@ -16,7 +16,7 @@ Edits to files that are already symlinked take effect immediately. Restowing is 
 
 Each top-level directory is a Stow package that mirrors `$HOME`, so `<package>/.config/foo/bar` is linked to `~/.config/foo/bar`.
 
-Packages: `aerospace`, `borders`, `claude`, `codex`, `ghostty`, `herdr`, `herdr-app`, `nvim`, `tmux`, `wezterm`, `zsh`.
+Packages: `aerospace`, `borders`, `claude`, `codex`, `ghostty`, `harlequin`, `herdr`, `herdr-app`, `nvim`, `tmux`, `wezterm`, `zsh`.
 
 These are not Stow packages, so do not stow them:
 
