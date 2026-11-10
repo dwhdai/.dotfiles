@@ -34,10 +34,20 @@ vim.pack.add({
 -- startup, and herdr-nvim starts a headless server
 vim.opt.termguicolors = true
 if vim.env.__CFBundleIdentifier == "dev.herdr.app" then
-	-- inside the herdr app: melange light on the newsprint theme's paper
-	local melange = require("melange/palettes/light")
-	melange.a.bg, melange.a.float, melange.a.sel = "#e0d9c8", "#d6cebb", "#cdbfae"
-	vim.o.background = "light"
+	-- inside the herdr app: melange on the newsprint theme's paper, light or
+	-- dark per the app's appearance (read at startup; no appearance = the system's)
+	local settings = vim.fn.expand("~/.config/herdr-app/settings.json")
+	local appearance = vim.json.decode(table.concat(vim.fn.readfile(settings), "\n")).appearance
+	if not appearance then
+		appearance = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" }):match("Dark") and "dark" or "light"
+	end
+	local melange = require("melange/palettes/" .. appearance)
+	if appearance == "dark" then
+		melange.a.bg, melange.a.float, melange.a.sel = "#26241f", "#1f1d19", "#4a4338"
+	else
+		melange.a.bg, melange.a.float, melange.a.sel = "#e0d9c8", "#d6cebb", "#cdbfae"
+	end
+	vim.o.background = appearance
 	vim.cmd.colorscheme("melange")
 else
 	vim.cmd.colorscheme("guts")
