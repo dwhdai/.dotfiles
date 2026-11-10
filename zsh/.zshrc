@@ -102,10 +102,6 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 # git-spice shorthand
 alias gs=git-spice
 
-# peon-ping quick controls
-alias peon="bash /Users/david/.claude/hooks/peon-ping/peon.sh"
-[ -f /Users/david/.claude/hooks/peon-ping/completions.bash ] && source /Users/david/.claude/hooks/peon-ping/completions.bash
-
 # databricks M2M creds for harlequin — read from ~/.databrickscfg
 if [[ -f ~/.databrickscfg ]]; then
   export DATABRICKS_CLIENT_ID=$(awk -F' *= *' '/^client_id/{print $2; exit}' ~/.databrickscfg)
