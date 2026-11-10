@@ -1,5 +1,7 @@
 {
   "zoom": 1.0,
+  "appearance": "light",
+  "ui_font": "JetBrains Mono",
   "sounds": {
     "enabled": true
   },

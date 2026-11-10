@@ -60,7 +60,8 @@
           },
           "size": {
             "px": 69
-          }
+          },
+          "hidden": true
         }
       ],
       "size": {
@@ -115,10 +116,10 @@
                     "color": "border"
                   },
                   "focus": {
-                    "width": 1,
+                    "width": 2,
                     "color": "accent"
                   },
-                  "radius": 10,
+                  "radius": 0,
                   "gap": 8,
                   "lone": true
                 }
@@ -173,7 +174,11 @@
             }
           ],
           "padding": 8,
-          "gap": 8
+          "gap": 8,
+          "divider": {
+            "width": 1,
+            "color": "foreground"
+          }
         },
         {
           "id": "status",
@@ -196,7 +201,7 @@
   ],
   "divider": {
     "width": 1,
-    "color": "border"
+    "color": "foreground"
   },
   "floating": [
     {

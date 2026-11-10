@@ -12,6 +12,7 @@ herdr/.config/herdr/session-snapshots/
 herdr-app/.config/herdr-app/*
 !herdr-app/.config/herdr-app/keys.json
 !herdr-app/.config/herdr-app/settings.json
+!herdr-app/.config/herdr-app/themes/
 !herdr-app/.config/herdr-app/layouts/
 herdr-app/.config/herdr-app/layouts/*
 !herdr-app/.config/herdr-app/layouts/main-copy.json
