@@ -42,13 +42,13 @@
       "effortLevel": "medium"
     }
   },
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
   "skipWorkflowUsageWarning": true,
-  "tui": "fullscreen",
-  "theme": "custom:newsprint-dark",
+  "theme": "light",
   "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
