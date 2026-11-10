@@ -1,0 +1,8 @@
+# Tracked harlequin profiles. Harlequin merges this with ~/.harlequin.toml,
+# which stays local because its profiles hold internal infra identifiers.
+
+# htdb read replica. Host, user, and dbname live in the `prod-replica` entry of
+# ~/.pg_service.conf (local only), so nothing internal is committed here.
+[profiles.htdb-replica]
+adapter = "postgres"
+conn_str = ["service=prod-replica"]
