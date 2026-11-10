@@ -23,7 +23,6 @@ These are not Stow packages, so do not stow them:
 - `scripts/`: on `PATH` directly. New scripts need `chmod +x`.
 - `Brewfile`: install with `brew bundle`.
 - `.claude/`: Claude Code settings for working in this repo only. System-wide Claude Code config belongs in the `claude` package.
-- Harlequin config (`~/.harlequin.toml`) is a plain local file on the work laptop, because it is all work infrastructure. Do not add it to this repo.
 
 ## Stow conflicts
 
