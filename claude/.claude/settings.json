@@ -7,30 +7,17 @@
       "/Users/david/Documents/ht-vault"
     ]
   },
-  "model": "fable",
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash '/Users/david/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  },
+  "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "ccstatusline",
+    "command": "npx -y ccstatusline@latest",
     "padding": 0,
-    "refreshInterval": 5
+    "refreshInterval": 10
   },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "ponytail@ponytail": true
+    "typescript-lsp@claude-plugins-official": true,
+    "mattpocock-skills@mattpocock": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -39,16 +26,19 @@
         "repo": "JuliusBrussee/caveman"
       }
     },
-    "ponytail": {
+    "mattpocock": {
       "source": {
         "source": "github",
-        "repo": "DietrichGebert/ponytail"
+        "repo": "mattpocock/skills"
       }
     }
   },
   "effortLevel": "medium",
   "modelSettings": {
     "claude-opus-5-5": {
+      "effortLevel": "medium"
+    },
+    "claude-fable-5-2": {
       "effortLevel": "medium"
     }
   },
@@ -57,7 +47,8 @@
     "mode": "hold"
   },
   "skipWorkflowUsageWarning": true,
-  "theme": "auto",
+  "tui": "fullscreen",
+  "theme": "custom:newsprint-dark",
   "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }

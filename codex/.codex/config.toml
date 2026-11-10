@@ -4,8 +4,6 @@ plan_mode_reasoning_effort = "high"
 approvals_reviewer = "auto_review"
 service_tier = "default"
 
-notify = ["/Users/david/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"bash\",\"\\/Users\\/david\\/.claude\\/hooks\\/peon-ping\\/adapters\\/codex.sh\"]"]
-
 [sandbox_workspace_write]
 writable_roots = ["/Users/david/Documents/ht-vault"]
 
@@ -30,54 +28,11 @@ status_line_use_colors = true
 screen_reader_detection_done = true
 theme = "catppuccin-mocha"
 
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-"gpt-5.6-sol" = 4
-gpt-6-astra = 4
-"gpt-6.1-sol" = 4
-
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
 
 [mcp_servers.notion.tools.notion-update-page]
 approval_mode = "approve"
-
-[mcp_servers.node_repl]
-args = []
-command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
-env_vars = ["BROWSER_USE_ACCESS_EXECUTOR_ID", "BROWSER_USE_ACCESS_PIPE_PATH", "BROWSER_USE_ACCESS_VERIFYING_IDENTITY"]
-startup_timeout_sec = 120
-
-[mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
-NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/david/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
-CODEX_HOME = "/Users/david/.codex"
-BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
-BROWSER_USE_TINYSKY_ENABLED = "1"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
-BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.1027.30824"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/david/.codex/plugins/cache/openai-bundled/browser/26.1027.30824/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
-SKY_CUA_SERVICE_PATH = "/Users/david/.codex/computer-use/Codex Computer Use.app"
-CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
-
-[marketplaces.ponytail]
-last_updated = "2026-08-19T13:51:48Z"
-last_revision = "2ed6c52c9d7e5e56942508591085fd45dea277d3"
-source_type = "git"
-source = "https://github.com/DietrichGebert/ponytail.git"
-
-[marketplaces.openai-bundled]
-source_type = "local"
-source = "/Users/david/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[marketplaces.openai-primary-runtime]
-source_type = "local"
-source = "/Users/david/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
 [marketplaces.caveman]
 source_type = "git"
@@ -89,74 +44,5 @@ enabled = true
 [plugins."notion@openai-api-curated"]
 enabled = true
 
-[plugins."ponytail@ponytail"]
-enabled = true
-
-[plugins."codex-app-tools@openai-bundled"]
-enabled = true
-
-[plugins."browser@openai-bundled"]
-enabled = true
-
-[plugins."unified-computer-use@openai-bundled"]
-enabled = true
-
-[plugins."visualize@openai-bundled"]
-enabled = true
-
-[plugins."computer-use@openai-bundled"]
-enabled = true
-
-[plugins."documents@openai-primary-runtime"]
-enabled = true
-
-[plugins."pdf@openai-primary-runtime"]
-enabled = true
-
-[plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
-
-[plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[plugins."template-creator@openai-primary-runtime"]
-enabled = true
-
 [plugins."caveman@caveman"]
 enabled = true
-
-[hooks.state]
-
-[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
-trusted_hash = "sha256:defea43402fc8edba23234c694a1117cf80efc2da38968a40a1004cd9d63f725"
-enabled = true
-trusted_content_hash = "sha256:bb00a199fdba6d53db0a1d82ad01fac8caf8746be8e38c8aaeb76e24b63f7dc8"
-
-[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:5aa5ec474e0bb546f207794993b37fdf7507e54a64e09216be164c5b7b42a197"
-enabled = true
-trusted_content_hash = "sha256:bb00a199fdba6d53db0a1d82ad01fac8caf8746be8e38c8aaeb76e24b63f7dc8"
-
-[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:subagent_start:0:0"]
-trusted_hash = "sha256:5b2c1dfa8c7ecc5e8881c8e69479f65d46ed727e0bc5b8e7b4553cee9e5c3daf"
-trusted_content_hash = "sha256:bb00a199fdba6d53db0a1d82ad01fac8caf8746be8e38c8aaeb76e24b63f7dc8"
-
-[hooks.state."/Users/david/.codex/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:89ab9fc45a58b555763bb0798a678473f04d06315614c8830262afd69be8702a"
-
-[hooks.state."/Users/david/hightouchio/hightouch/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:b8711803b344fd039c999f0115ea6860fac3c53d966cd5710a04168dee8fe624"
-
-[hooks.state."/Users/david/hightouchio/hightouch/.codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:721a6ad94a5d57b7d98b9d75560d9aab4c12d19abc7092f00b058d3ddb16abf1"
-
-[features]
-hooks = true
-
-[desktop]
-followUpQueueMode = "steer"
-external-agent-import-sync-item-types = "all"
-external-agent-import-sync-enabled = true
-conversationDetailMode = "STEPS_COMMANDS"
-ambient-suggestions-enabled = true
-notifications-dot-enabled = true
