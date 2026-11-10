@@ -15,6 +15,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Load api keys
 #export ANTHROPIC_API_KEY=$(pass show anthropic_key)
 
+# Default editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 # Source aliases
 for a in $HOME/.zsh/aliases/*
 do
@@ -70,7 +74,7 @@ bindkey '^[[B' history-substring-search-down
 eval "$(zoxide init zsh)"
 
 # mise (pinned node/pnpm versions per-repo)
-eval "$(mise activate zsh)"
+command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
@@ -82,6 +86,9 @@ if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/op
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+# Machine-local secrets, kept out of this public repo
+[[ ! -f "$HOME/.zshrc.local" ]] || source "$HOME/.zshrc.local"
 
 # pnpm
 export PNPM_HOME="/Users/david/Library/pnpm"
@@ -102,8 +109,21 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 # git-spice shorthand
 alias gs=git-spice
 
+# oMLX: CLI shim path begin
+case ":$PATH:" in
+  *":$HOME/.omlx/bin:"*) ;;
+  *) export PATH="$HOME/.omlx/bin:$PATH" ;;
+esac
+# oMLX: CLI shim path end
+
 # databricks M2M creds for harlequin — read from ~/.databrickscfg
 if [[ -f ~/.databrickscfg ]]; then
   export DATABRICKS_CLIENT_ID=$(awk -F' *= *' '/^client_id/{print $2; exit}' ~/.databrickscfg)
   export DATABRICKS_CLIENT_SECRET=$(awk -F' *= *' '/^client_secret/{print $2; exit}' ~/.databrickscfg)
 fi
+
+# OrbStack CLI shims
+case ":$PATH:" in
+  *":$HOME/.orbstack/bin:"*) ;;
+  *) export PATH="$HOME/.orbstack/bin:$PATH" ;;
+esac
