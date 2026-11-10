@@ -48,7 +48,7 @@
     "mode": "hold"
   },
   "skipWorkflowUsageWarning": true,
-  "theme": "light",
+  "theme": "custom:newsprint",
   "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
