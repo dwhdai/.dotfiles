@@ -26,10 +26,6 @@ detach = "prefix+d"
 goto = "prefix+s"
 workspace_picker = "prefix+shift+s"
 
-# previous/next workspace
-previous_workspace = "prefix+9"
-next_workspace = "prefix+0"
-
 # settings moved off prefix+s to make room for goto
 settings = "prefix+comma"
 
