@@ -9,8 +9,6 @@
     "ctrl-shift-tab": "tab.prev",
     "cmd-shift-]": "tab.next",
     "cmd-shift-[": "tab.prev",
-    "alt-]": "space.next",
-    "alt-[": "space.prev",
     "cmd-]": "agent.next",
     "cmd-[": "agent.prev",
     "cmd-shift-l": "layout.switch",
