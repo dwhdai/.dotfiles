@@ -33,7 +33,15 @@ vim.pack.add({
 -- set explicitly: nvim only auto-detects truecolor with a UI attached at
 -- startup, and herdr-nvim starts a headless server
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("guts")
+if vim.env.__CFBundleIdentifier == "dev.herdr.app" then
+	-- inside the herdr app: melange light on the newsprint theme's paper
+	local melange = require("melange/palettes/light")
+	melange.a.bg, melange.a.float, melange.a.sel = "#e0d9c8", "#d6cebb", "#cdbfae"
+	vim.o.background = "light"
+	vim.cmd.colorscheme("melange")
+else
+	vim.cmd.colorscheme("guts")
+end
 
 -- which-key
 local wk = require("which-key")

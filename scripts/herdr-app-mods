@@ -27,3 +27,8 @@ curl -fsSL https://raw.githubusercontent.com/ChmaraX/herdr-gitview/main/install.
 # herdr-critters has no release installer: run its repo's own install.sh
 git clone -q --depth 1 https://github.com/izerozlu/herdr-critters "$tmp/herdr-critters"
 sh "$tmp/herdr-critters/install.sh"
+
+# critters' palettes are fixed: default to the edo look, on the newsprint theme's paper
+themes="${HERDR_APP_HOME:-$HOME/.config/herdr-app}/mods/herdr-critters/themes"
+sed -i '' 's/DEFAULT_THEME = "retro"/DEFAULT_THEME = "edo"/' "$themes/index.js"
+sed -i '' 's/bg: "#efe6d0"/bg: "#e0d9c8"/' "$themes/edo/theme.js"
