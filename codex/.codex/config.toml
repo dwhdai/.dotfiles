@@ -4,6 +4,8 @@ plan_mode_reasoning_effort = "high"
 approvals_reviewer = "auto_review"
 service_tier = "default"
 
+notify = ["/Users/david/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
 [sandbox_workspace_write]
 writable_roots = ["/Users/david/Documents/ht-vault"]
 
@@ -38,6 +40,10 @@ approval_mode = "approve"
 source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/david/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
 [plugins."github@openai-api-curated"]
 enabled = true
 
@@ -46,3 +52,6 @@ enabled = true
 
 [plugins."caveman@caveman"]
 enabled = true
+
+[desktop]
+followUpQueueMode = "steer"
