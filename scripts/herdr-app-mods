@@ -32,3 +32,44 @@ sh "$tmp/herdr-critters/install.sh"
 themes="${HERDR_APP_HOME:-$HOME/.config/herdr-app}/mods/herdr-critters/themes"
 sed -i '' 's/DEFAULT_THEME = "retro"/DEFAULT_THEME = "edo"/' "$themes/index.js"
 sed -i '' 's/bg: "#efe6d0"/bg: "#e0d9c8"/' "$themes/edo/theme.js"
+
+# edo night: on newsprint-dark's paper, whenever the app's appearance is dark
+sed -i '' 's/^export default {/const day = {/' "$themes/edo/theme.js"
+cat >>"$themes/edo/theme.js" <<'EOF'
+
+import { settings } from "herdr";
+
+const night = {
+  colors: {
+    bg: "#26241f",
+    head: "#968d7c",
+    machine: "#d9695c",
+    focus: "#d9695c",
+    text: "#d6cebb",
+    sub: "#a89f8c",
+    badgeBg: "#1f1d19cc",
+    idleEdge: "#7d7567",
+    idleMark: "#c9c0ad",
+    idleBox: "#5a5448",
+    btnEdge: "#45403a",
+    divider: "#38342c",
+    rowHover: "#ffffff0d",
+    clear: "#00000000",
+    statusEdgeAlpha: "99",
+  },
+  scenes: {
+    fuji: { card: "#2c2f33", edge: "#434c5a", box: "#6f8fb5", label: "#9db6d3" },
+    sakura: { card: "#332a2a", edge: "#5a4444", box: "#c87a8a", label: "#dd9aa6" },
+    take: { card: "#2c2f26", edge: "#48523a", box: "#7d9a5a", label: "#a6c088" },
+    kaki: { card: "#332c23", edge: "#5a4a35", box: "#c87a3a", label: "#dca16c" },
+  },
+  status: {
+    working: { word: "BUSY", color: "#7fa3c9" },
+    blocked: { word: "HELP!", color: "#e0584e" },
+    done: { word: "DONE", color: "#8fb078" },
+    idle: { word: "IDLE", color: "#968d7c" },
+  },
+};
+
+export default new Proxy(day, { get: (look, key) => (settings().dark && key in night ? night[key] : look[key]) });
+EOF
