@@ -1,0 +1,8 @@
+{
+  "name": "Newsprint",
+  "base": "light",
+  "overrides": {
+    "userMessageBackground": "#d6cebb",
+    "userMessageBackgroundHover": "#d6cebb"
+  }
+}
