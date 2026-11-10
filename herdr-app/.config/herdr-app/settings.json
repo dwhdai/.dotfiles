@@ -5,7 +5,7 @@
   },
   "font_ligatures": false,
   "ui_font": "JetBrains Mono",
-  "minimum_contrast": 4.5,
+  "minimum_contrast": 3,
   "appearance": "light",
   "theme": {
     "light": "newsprint",
