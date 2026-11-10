@@ -72,5 +72,5 @@ brew "herdr"
 #   herdr-app-mods
 brew "databricks"
 # harlequin: not via brew (adapters need same venv) — installed with:
-#   uv tool install harlequin --with harlequin-snowflake --with 'harlequin-databricks[databricks-sdk]'
+#   uv tool install harlequin --with harlequin-postgres --with harlequin-snowflake --with 'harlequin-databricks[databricks-sdk]'
 brew "lame"

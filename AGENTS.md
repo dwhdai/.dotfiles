@@ -23,6 +23,7 @@ These are not Stow packages, so do not stow them:
 - `scripts/`: on `PATH` directly. New scripts need `chmod +x`.
 - `Brewfile`: install with `brew bundle`.
 - `.claude/`: Claude Code settings for working in this repo only. System-wide Claude Code config belongs in the `claude` package.
+- Harlequin config (`~/.harlequin.toml`) is a plain local file on the work laptop, because it is all work infrastructure. Do not add it to this repo.
 
 ## Stow conflicts
 
@@ -37,4 +38,5 @@ Do not run `stow --adopt` without reviewing the result, since it overwrites the 
 - This repo is public. Never commit secrets, tokens, or internal infrastructure identifiers. Read secrets at runtime instead, e.g. from the macOS keychain.
 - Machine-local shell exports go in `~/.zshrc.local`, which `.zshrc` sources and which stays out of the repo.
 - Apps write through symlinks, so settings changed in an app show up here as uncommitted diffs. Review them before committing, and keep app-generated state out of tracked files.
+- If you notice anything in the repo that breaks these rules, such as a committed identifier or a gitignored file that should be tracked, tell the user, even when it is outside the current task.
 - `herdr` and `herdr-app` directories contain runtime state. `.gitignore` tracks only the hand-edited files, so check it when adding new ones.
