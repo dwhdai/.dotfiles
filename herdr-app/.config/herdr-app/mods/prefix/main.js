@@ -74,6 +74,9 @@ const ACTIONS = {
 };
 const INDEXED = { switch_tab: "tab.select", switch_workspace: "space.select" };
 
+// App-only prefix keys, not in the TUI's config; these win over its bindings.
+const APP_KEYS = { 9: ["space.prev"], 0: ["space.next"] };
+
 const NAMES = { minus: "-", comma: ",", plus: "+", backtick: "`", ampersand: "&", esc: "escape", period: "." };
 
 // "shift+minus" -> "shift--"; the TUI joins with +, keystrokes with -
@@ -176,7 +179,7 @@ async function resize(dir) {
 
 async function load() {
   const keys = { ...DEFAULTS, ...parseKeys(await readTextFile(home() + "/.config/herdr/config.toml")) };
-  return { prefix: norm(keys.prefix), label: keys.prefix, table: buildTable(keys) };
+  return { prefix: norm(keys.prefix), label: keys.prefix, table: { ...buildTable(keys), ...APP_KEYS } };
 }
 
 export default class Prefix extends View {
