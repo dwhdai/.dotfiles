@@ -323,6 +323,19 @@ vim.lsp.log.set_level(vim.log.levels.INFO)
 -- vtsls: a thin wrapper around tsserver that handles large TS monorepos far
 -- better than typescript-language-server (smarter project loading, less memory
 -- thrash, robust cross-package go-to-definition).
+-- herdr spawns nvim from its launchd daemon with a login-shell PATH that
+-- never sources .zshrc, so pnpm's global bin (where vtsls lives) is missing
+-- and the server fails with "vtsls is not executable". Add it here so the
+-- LSP works no matter how nvim was launched.
+local pnpm_home = vim.env.PNPM_HOME or (vim.env.HOME .. "/Library/pnpm")
+-- pnpm v11 puts global bins (e.g. tsrs) in $PNPM_HOME/bin; older ones (vtsls)
+-- sit directly in $PNPM_HOME.
+for _, dir in ipairs({ pnpm_home, pnpm_home .. "/bin" }) do
+	if not (":" .. vim.env.PATH .. ":"):find(":" .. dir .. ":", 1, true) then
+		vim.env.PATH = dir .. ":" .. vim.env.PATH
+	end
+end
+
 vim.lsp.config("vtsls", {
 	cmd = { "vtsls", "--stdio" },
 	-- Root detection priority matters in monorepos: prefer the workspace root
@@ -354,7 +367,33 @@ vim.lsp.config("vtsls", {
 		},
 	},
 })
-vim.lsp.enable("vtsls")
+
+-- tsrs: Rust port of the TypeScript 7 compiler and language server
+-- (oxc-project/tsrs). Same protocol as `tsgo --lsp`, with faster checking and
+-- much lower memory than tsserver on big monorepos. No nvim-lspconfig entry
+-- exists for it, so filetypes and root markers are set here.
+-- Prefer a project-pinned node_modules/.bin/tsrs; fall back to the global one
+-- (`pnpm add -g tsrs`).
+-- To go back to tsserver, enable "vtsls" (configured above) instead of "tsrs".
+vim.lsp.config("tsrs", {
+	cmd = function(dispatchers, config)
+		local bin = "tsrs"
+		if config.root_dir then
+			local local_bin = vim.fs.joinpath(config.root_dir, "node_modules", ".bin", "tsrs")
+			if vim.fn.executable(local_bin) == 1 then
+				bin = local_bin
+			end
+		end
+		return vim.lsp.rpc.start({ bin, "--lsp", "--stdio" }, dispatchers, {
+			cwd = config.cmd_cwd or config.root_dir,
+			env = config.cmd_env,
+		})
+	end,
+	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	-- Workspace root first so one server covers the whole monorepo (see vtsls).
+	root_markers = { "pnpm-workspace.yaml", "pnpm-lock.yaml", "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+})
+vim.lsp.enable("tsrs")
 
 require("conform").setup({
 	formatters_by_ft = {
