@@ -75,7 +75,15 @@ const ACTIONS = {
 const INDEXED = { switch_tab: "tab.select", switch_workspace: "space.select" };
 
 // App-only prefix keys, not in the TUI's config; these win over its bindings.
-const APP_KEYS = { 9: ["space.prev"], 0: ["space.next"] };
+// prefix+1..9 selects a space (the TUI's default is a tab), prefix+n/p
+// cycles tabs (tmux windows).
+const APP_KEYS = {
+  ...Object.fromEntries(
+    Array.from({ length: 9 }, (_, i) => [String(i + 1), ["space.select", { index: i + 1 }]]),
+  ),
+  n: ["tab.next"],
+  p: ["tab.prev"],
+};
 
 const NAMES = { minus: "-", comma: ",", plus: "+", backtick: "`", ampersand: "&", esc: "escape", period: "." };
 
