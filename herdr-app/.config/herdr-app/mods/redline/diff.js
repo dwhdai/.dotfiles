@@ -7,7 +7,11 @@ import { tokens, langOf } from "./highlight.js";
 import { JOB_LOOK } from "./panels.js";
 import { councilTask } from "./launcher.js";
 
-const ROW = 20;
+// Diff text follows the terminals' font size (layout, else settings.json, else Herdr's 14);
+// row height and the column/char widths scale with it.
+const FONT = () => Number(settings().font_size) || 14;
+const ROW = () => Math.round(FONT() * 1.75);
+const CH = () => FONT() * 0.61;
 const ago = (t) => {
   const s = (Date.now() - t) / 1000;
   return !t ? "" : s < 3600 ? `${Math.max(1, Math.round(s / 60))}m` : s < 86400 ? `${Math.round(s / 3600)}h` : `${Math.round(s / 86400)}d`;
@@ -239,7 +243,7 @@ export class Review {
     this.commentable = null;
     if (this.full && r.ok) this.commentable = new Set(diffRows((await diff(3)).out).flatMap((x) => (x.kind === "@" ? [] : keysOf(x))));
     this.rows = rows.length ? rows.slice(0, 5000) : [{ kind: "@", text: r.ok ? "No text diff (binary or mode change)" : r.err }];
-    this.width = Math.max(300, ...this.rows.map((x) => Math.min(x.text.length, 400) * 7 + 110));
+    this.width = Math.max(300, ...this.rows.map((x) => Math.min(x.text.length, 400) * CH() + 50 + 12 * CH()));
     this.sel = null;
   }
 
@@ -483,19 +487,19 @@ export class Review {
 
   row(x, i, t, marks) {
     const sel = this.sel && i >= this.sel.from && i <= this.sel.to;
-    if (x.kind === "@") return div().w_full().h(ROW).flex_none().px(12).truncate().bg(t.raised).text_color(t.dim).child(x.text);
+    if (x.kind === "@") return div().w_full().h(ROW()).flex_none().px(12).truncate().bg(t.raised).text_color(t.dim).child(x.text);
     const m = keysOf(x).map((k) => marks.get(k)).find(Boolean);
     const outside = this.commentable && !keysOf(x).some((k) => this.commentable.has(k));
-    return h_flex().w_full().h(ROW).flex_none().cursor_pointer()
+    return h_flex().w_full().h(ROW()).flex_none().cursor_pointer()
       .when(x.kind === "+", (e) => e.bg(t.ansi2 + "18")).when(x.kind === "-", (e) => e.bg(t.ansi1 + "18"))
       .when(sel, (e) => e.bg(t.selection))
       .hover((s) => s.bg(t.hover))
       .when(Boolean(outside), (e) => e.opacity(0.75))
       .child(div().w(18).flex_none().text_center().text_color(m?.drafts ? t.accent : m?.findings ? t.ansi5 : t.muted)
         .child(m ? (m.drafts ? "●" : m.threads ? "◆" : "✦") : ""))
-      .child(div().w(40).flex_none().pr(6).text_right().text_color(t.dim).child(x.old == null ? "" : String(x.old)))
-      .child(div().w(40).flex_none().pr(6).text_right().text_color(t.dim).child(x.new == null ? "" : String(x.new)))
-      .child(div().w(14).flex_none().text_color(x.kind === "+" ? t.ansi2 : x.kind === "-" ? t.ansi1 : t.dim).child(x.kind === " " ? "" : x.kind))
+      .child(div().w(5 * CH() + 6).flex_none().pr(6).text_right().text_color(t.dim).child(x.old == null ? "" : String(x.old)))
+      .child(div().w(5 * CH() + 6).flex_none().pr(6).text_right().text_color(t.dim).child(x.new == null ? "" : String(x.new)))
+      .child(div().w(Math.ceil(CH() * 2)).flex_none().text_color(x.kind === "+" ? t.ansi2 : x.kind === "-" ? t.ansi1 : t.dim).child(x.kind === " " ? "" : x.kind))
       .child(this.code(x, t));
   }
 
@@ -710,10 +714,10 @@ export class Review {
             cx.notify();
           })
           .child(this.full ? "✓ Full file" : "Full file")))
-      .child(div().flex_1().min_h(0).relative().font_family(settings().font_family ?? "JetBrains Mono").text_size(11.5)
+      .child(div().flex_1().min_h(0).relative().font_family(settings().font_family ?? "JetBrains Mono").text_size(FONT())
         .child(div().id("rv-diff-x").size_full().overflow_x_scrollbar()
           .child(div().w_full().min_w(this.width ?? 300).h_full()
-            .child(v_virtual_list("rv-diff", this.rows.length, ROW, (i) => String(i),
+            .child(v_virtual_list("rv-diff", this.rows.length, ROW(), (i) => String(i),
               (range) => this.rows.slice(range.start, range.end).map((x, k) => this.row(x, range.start + k, t, marks)))
               .on_item_click((key, cx) => this.select(Number(key), this.shift, cx)).size_full())))
         .child(Scrollbar.vertical("rv-diff").viewport_from_layout().absolute().inset_0()))
