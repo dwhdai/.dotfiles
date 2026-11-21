@@ -26,6 +26,10 @@ herdr-app/.config/herdr-app/mods/*
 herdr-app/.config/herdr-app/mods/*/*.d.ts
 herdr-app/.config/herdr-app/mods/*/jsconfig.json
 
+# rex: stow links the whole folder, so track only the config
+rex/.config/rex/*
+!rex/.config/rex/init.lua
+
 # harlequin: profiles are local to the work laptop (~/.harlequin.toml), never
 # tracked. The harlequin package holds only the global config.toml; history.db
 # and friends live beside it at runtime.
