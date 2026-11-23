@@ -7,7 +7,7 @@
 
 import { View, div } from "gpui-kit";
 import { h_flex } from "gpui-base";
-import { run, props, closeOverlay, theme, focused, hc, exec, home, readTextFile, notify } from "herdr";
+import { run, props, closeOverlay, theme, focused, hc, home, readTextFile, notify } from "herdr";
 
 // herdr --default-config [keys], prefix-mode actions only
 const DEFAULTS = {
@@ -66,11 +66,10 @@ const ACTIONS = {
   zoom: ["pane.zoom"],
   fullscreen: ["pane.zoom"],
   toggle_sidebar: ["layout.toggle", { id: "sidebar" }],
-  // no app command for these; handled by resize() below
-  resize_pane_left: ["resize", "left"],
-  resize_pane_down: ["resize", "down"],
-  resize_pane_up: ["resize", "up"],
-  resize_pane_right: ["resize", "right"],
+  resize_pane_left: ["pane.resize", { direction: "left" }],
+  resize_pane_down: ["pane.resize", { direction: "down" }],
+  resize_pane_up: ["pane.resize", { direction: "up" }],
+  resize_pane_right: ["pane.resize", { direction: "right" }],
 };
 const INDEXED = { switch_tab: "tab.select", switch_workspace: "space.select" };
 
@@ -120,71 +119,6 @@ function buildTable(keys) {
   return table;
 }
 
-// One JSON-RPC call to herdr-core, which keeps the app's spaces/tabs/splits
-// in its "herdr-app" document.
-async function rpc(method, params) {
-  const req = JSON.stringify({ jsonrpc: "2.0", id: 1, method, params });
-  const r = await exec("sh", ["-c", 'printf "%s\\n" "$1" | hc connect', "sh", req]);
-  const res = r.stdout.split("\n").filter(Boolean).map((l) => JSON.parse(l)).find((m) => m.id === 1);
-  if (!res || res.error) throw new Error(res?.error?.message ?? (r.stderr || "no reply from hc"));
-  return res.result;
-}
-
-const STEP = 0.05; // share of the split moved per press
-const MIN = 0.05;  // smallest share a pane keeps
-
-// Moves the border of the focused pane's nearest row (left/right) or
-// column (up/down) split one STEP that way, tmux resize-pane style.
-// Mutates `value`; returns whether anything changed.
-function resizeDoc(value, pane, dir) {
-  const want = dir === "left" || dir === "right" ? "row" : "column";
-  const find = (node, path) => {
-    if (node.id === pane) return path;
-    for (const c of node.children ?? []) {
-      const p = find(c, [...path, node]);
-      if (p) return p;
-    }
-    return null;
-  };
-  for (const space of value?.spaces ?? []) {
-    for (const tab of space.tabs ?? []) {
-      const path = find(tab.root, []);
-      if (!path) continue;
-      const chain = [...path, null];
-      for (let i = path.length - 1; i >= 0; i--) {
-        const split = path[i];
-        const kids = split.children;
-        if (split.type !== want || kids.length < 2) continue;
-        const idx = kids.indexOf(chain[i + 1] ?? kids.find((k) => k.id === pane));
-        const w = kids.map((k) => k.size?.weight ?? 1);
-        const total = w.reduce((a, b) => a + b, 0);
-        const d = STEP * total, min = MIN * total;
-        const back = dir === "left" || dir === "up";
-        // the border moved: before this pane when there is one that way
-        const a = back ? (idx > 0 ? idx - 1 : idx) : (idx < kids.length - 1 ? idx : idx - 1);
-        const delta = back ? -d : d;
-        if (w[a] + delta < min || w[a + 1] - delta < min) return false;
-        w[a] += delta; w[a + 1] -= delta;
-        kids.forEach((k, j) => { k.size = { ...k.size, weight: w[j] }; });
-        return true;
-      }
-      return false;
-    }
-  }
-  return false;
-}
-
-async function resize(dir) {
-  const pane = focused()?.pane;
-  if (!pane) return;
-  for (let tries = 0; tries < 3; tries++) {
-    const { value, version } = await rpc("doc.get", { name: "herdr-app" });
-    if (!resizeDoc(value, pane, dir)) return;
-    try { return await rpc("doc.set", { name: "herdr-app", value, version }); }
-    catch (e) { if (!/conflict/.test(e.message)) throw e; } // the app wrote first: redo on its version
-  }
-}
-
 async function load() {
   const keys = { ...DEFAULTS, ...parseKeys(await readTextFile(home() + "/.config/herdr/config.toml")) };
   return { prefix: norm(keys.prefix), label: keys.prefix, table: { ...buildTable(keys), ...APP_KEYS } };
@@ -212,8 +146,7 @@ export default class Prefix extends View {
         return;
       }
       const hit = strokes.map((s) => table[s.toLowerCase()]).find(Boolean);
-      if (hit?.[0] === "resize") await resize(hit[1]);
-      else if (hit) run(hit[0], hit[1] ?? {});
+      if (hit) run(hit[0], hit[1] ?? {});
     } finally {
       closeOverlay(props().overlay);
     }
